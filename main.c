@@ -14,12 +14,15 @@
 #define MENU_MODIFY 3
 #define MENU_SEARCH 4
 #define MENU_ALL_PRINT 5
+#define MENU_SAVE 6
+#define MENU_LOAD 7
 #define MENU_FINISH 0
 
 #define ERROR_NO_MENU 1
 #define ERROR_FULL 2
 #define ERROR_EMPTY 3
 #define ERROR_NOT_SEARCH 4
+#define ERROR_LOAD_FAIL 5
 
 #define USE 1
 #define NOT_USE 0
@@ -42,6 +45,8 @@ void printMainMenu() {
 	printf("3. 주소정보를 수정한다.\n");
 	printf("4. 주소정보를 검색한다.\n");
 	printf("5. 전체 주소록을 출력한다.\n");
+	printf("6. 주소록 파일에 저장한다.\n");
+	printf("7. 주소록 파일을 불러온다.\n");
 	printf("0. 종료한다.\n");
 }
 
@@ -62,6 +67,9 @@ void print_error(int error) {
 		break;
 	case ERROR_NOT_SEARCH:
 		printf("주소정보를 찾을 수 없습니다.\n");
+		break;
+	case ERROR_LOAD_FAIL:
+		printf("addressbook.book 파일을 불러올수 없습니다.\n");
 		break;
 	default:
 		break;
@@ -320,6 +328,62 @@ void printAllPersonInfo(personalInfo *pBook) {
 	}
 }
 
+void removeAll(personalInfo *pBook) {
+	int index = 0;
+
+	for ( index = 0; index < MAX_SIZE; index++ ) {
+		pBook[index].flag = NOT_USE;
+	}
+}
+
+void saveAddressBook(personalInfo *pBook) {
+	FILE *fp = NULL;
+	int index = 0;
+
+	if ( isEmptyAddressBook(pBook) == TRUE ) {
+		print_error(ERROR_EMPTY);
+		return ;
+	}
+
+	fp = fopen("addressbook.dat", "w");
+
+	for ( index = 0; index < MAX_SIZE; index++ ) {
+		if ( pBook[index].flag == USE ) {
+			fprintf(fp, "%s\n", pBook[index].name);
+			fprintf(fp, "%s\n", pBook[index].phone);
+			fprintf(fp, "%s\n", pBook[index].address);
+		}
+	}
+
+	fclose(fp);
+	printf("addressbook.dat 파일에 저장하였습니다.\n");
+}
+
+void loadAddressBook(personalInfo *pBook) {
+	FILE *fp = NULL;
+	int index = 0;
+
+	removeAll(pBook);
+
+	fp = fopen("addressbook.dat", "r");
+
+	if ( fp == NULL ) {
+		print_error(ERROR_LOAD_FAIL);
+		return ;
+	}
+
+	while( ! feof(fp) ) {
+		fscanf(fp, "%s", pBook[index].name);
+		fscanf(fp, "%s", pBook[index].phone);
+		fscanf(fp, "%s", pBook[index].address);
+		pBook[index].flag = USE;
+		index++;
+	}
+
+	fclose(fp);
+	printf("addressbook.dat 파일을 불러왔습니다.\n");
+}
+
 int main(void) {
 	int menu = -1;
 	personalInfo book[MAX_SIZE] = {0,};
@@ -358,6 +422,12 @@ int main(void) {
 			break;
 		case MENU_ALL_PRINT:
 			printAllPersonInfo(book);
+			break;
+		case MENU_SAVE:
+			saveAddressBook(book);
+			break;
+		case MENU_LOAD:
+			loadAddressBook(book);
 			break;
 		case MENU_FINISH:
 			print_finish();
