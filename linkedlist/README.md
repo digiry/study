@@ -22,30 +22,28 @@ List : LINKEDLIST
 
 ## 기능
 
-createLinkedList(NODE* self)
+createLinkedList(LINKEDLIST *self)
 
-destroyLinkedList(NODE* self)
+destroyLinkedList(LINKEDLIST *self)
 
-appendLinkedList(NODE* self, personalInfo* p_info)
+appendLinkedList(LINKEDLIST *self, personalInfo *p_info)
 
-insertLinkedList(NODE* self, int index, personalInfo* p_info)
+insertLinkedList(LINKEDLIST *self, int index, personalInfo *p_info)
 
-deleteLinkedList(NODE* self, int index)
+deleteLinkedList(LINKEDLIST *self, int index)
 
-deleteAllLinkedList(NODE* self)
+deleteAllLinkedList(LINKEDLIST *self)
 
-viewAtLinkedList(NODE* self, int index) : personalInfo*
+viewAtLinkedList(LINKEDLIST *self, int index) : personalInfo
 
-moveFirstLinkedList(NODE* self) : NODE*
+moveFirstLinkedList(LINKEDLIST *self) : NODE*
 
-moveLastLinkedList(NODE* self) : NODE*
+moveLastLinkedList(LINKEDLIST *self) : NODE*
 
-nextLinkedList(NODE* self) : NODE*
+nextLinkedList(LINKEDLIST *self) : NODE*
 
-isTailLinkedList(NODE* self) : int
+isTailLinkedList(LINKEDLIST *self) : int
 
-isHeadLinkedList(NODE* self) : int
+getLengthLinkedList(LINKEDLIST *self) : int
 
-getLengthLinkedList(NODE* self) : int
-
-findNameLinkedList(NODE* self, NODE* beginNode, char* p_name) : NODE*
+findNameLinkedList(LINKEDLIST *self, NODE *beginNode, char *p_name) : NODE*
