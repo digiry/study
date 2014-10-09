@@ -36,9 +36,9 @@ deleteAllLinkedList(LINKEDLIST *self)
 
 viewAtLinkedList(LINKEDLIST *self, int index) : personalInfo
 
-moveFirstLinkedList(LINKEDLIST *self) : NODE*
+moveFirstLinkedList(LINKEDLIST *self) : NODE\*
 
-moveLastLinkedList(LINKEDLIST *self) : NODE*
+moveLastLinkedList(LINKEDLIST *self) : NODE\*
 
 nextLinkedList(LINKEDLIST *self) : NODE*
 
