@@ -36,14 +36,14 @@ deleteAllLinkedList(LINKEDLIST *self)
 
 viewAtLinkedList(LINKEDLIST *self, int index) : personalInfo
 
-moveFirstLinkedList(LINKEDLIST *self) : NODE\*
+moveFirstLinkedList(LINKEDLIST *self) : NODE *
 
-moveLastLinkedList(LINKEDLIST *self) : NODE\*
+moveLastLinkedList(LINKEDLIST *self) : NODE *
 
-nextLinkedList(LINKEDLIST *self) : NODE*
+nextLinkedList(LINKEDLIST *self) : NODE *
 
 isTailLinkedList(LINKEDLIST *self) : int
 
 getLengthLinkedList(LINKEDLIST *self) : int
 
-findNameLinkedList(LINKEDLIST *self, NODE *beginNode, char *p_name) : NODE*
+findNameLinkedList(LINKEDLIST *self, NODE *beginNode, char *p_name) : NODE *
