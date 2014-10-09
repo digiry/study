@@ -23,16 +23,29 @@ List : LINKEDLIST
 ## 기능
 
 createLinkedList(NODE* self)
+
 destroyLinkedList(NODE* self)
+
 appendLinkedList(NODE* self, personalInfo* p_info)
+
 insertLinkedList(NODE* self, int index, personalInfo* p_info)
+
 deleteLinkedList(NODE* self, int index)
+
 deleteAllLinkedList(NODE* self)
+
 viewAtLinkedList(NODE* self, int index) : personalInfo*
+
 moveFirstLinkedList(NODE* self) : NODE*
+
 moveLastLinkedList(NODE* self) : NODE*
+
 nextLinkedList(NODE* self) : NODE*
+
 isTailLinkedList(NODE* self) : int
+
 isHeadLinkedList(NODE* self) : int
+
 getLengthLinkedList(NODE* self) : int
+
 findNameLinkedList(NODE* self, NODE* beginNode, char* p_name) : NODE*
