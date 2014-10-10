@@ -117,8 +117,6 @@ NODE* moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) {
 
 	if ( index <= 0 ) {
 		target = self->head;
-	} else if ( index == 1 ) {
-		target = moveFirstLinkedList(self);
 	} else {
 		target = moveFirstLinkedList(self);
 		while ( i < index - 1 ) {
@@ -167,6 +165,7 @@ LINKEDLIST* deleteLinkedList(LINKEDLIST *self, int index) {
 	before->next = next;
 
 	free(target->info);
+	free(target);
 	target->next = NULL;
 
 	self->pos = before;
@@ -187,6 +186,7 @@ LINKEDLIST* deleteAllLinkedList(LINKEDLIST *self) {
 		return self;
 	}
 
+	//index error, please change while root or index=0
 	for ( index = 0; index < self->length; index++ ) {
 		self = deleteLinkedList(self, index);
 	}
@@ -196,12 +196,14 @@ LINKEDLIST* deleteAllLinkedList(LINKEDLIST *self) {
 	return self;
 }
 
+// pointer로 반환형 변환필요
 personalInfo viewAtLinkedList(LINKEDLIST *self, int index) {
 	personalInfo info;
 	NODE *target;
 
 	target = moveToBeforeNodeLinkedList(self, index)->next;
 
+	// pointer로 변경되면 주석처리
 	strcpy(info.name, target->info->name);
 	strcpy(info.phone, target->info->phone);
 	strcpy(info.address, target->info->address);
@@ -212,6 +214,7 @@ personalInfo viewAtLinkedList(LINKEDLIST *self, int index) {
 	target = NULL;
 
 	return info;
+	//return target->next->personalInfo;
 }
 
 NODE* moveFirstLinkedList(LINKEDLIST *self) {
@@ -242,7 +245,7 @@ NODE* nextLinkedList(LINKEDLIST *self) {
 int isTailLinkedList(LINKEDLIST *self) {
 	int isTail = FALSE;
 
-	if ( self->pos->next == NULL ) {
+	if ( self->pos == self->tail ) {
 		isTail = TRUE;
 	}
 
@@ -260,6 +263,7 @@ NODE* findNameLinkedList(LINKEDLIST *self, NODE* beginNode, char* p_name) {
 		if ( strcmp(self->pos->info->name, p_name) == 0 ) {
 			break;
 		}
+		nextLinkedList(self);
 	}
 
 	return self->pos;
