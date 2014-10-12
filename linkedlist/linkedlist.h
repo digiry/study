@@ -7,16 +7,20 @@
 #define TRUE 1
 #define FALSE 0
 
-typedef struct _tag_personalInfo {
+typedef struct _tag_PERSONALINFO PERSONALINFO;
+typedef struct _tag_NODE NODE;
+typedef struct _tag_LINKEDLIST LINKEDLIST;
+
+typedef struct _tag_PERSONALINFO {
 	char name[7];
 	char phone[12];
 	char address[50];
 	int flag;
-} personalInfo;
+} PERSONALINFO;
 
 typedef struct _tag_NODE {
-	personalInfo *info;
-	struct _tag_NODE *next;
+	PERSONALINFO *info;
+	NODE *next;
 } NODE;
 
 typedef struct _tag_LINKEDLIST {
@@ -26,21 +30,21 @@ typedef struct _tag_LINKEDLIST {
 	int length;
 } LINKEDLIST;
 
-LINKEDLIST* createLinkedList(LINKEDLIST *self);
+void createLinkedList(LINKEDLIST *self);
 
 void destroyLinkedList(LINKEDLIST *self);
 
-LINKEDLIST* appendLinkedList(LINKEDLIST *self, personalInfo* p_info);
+void appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info);
 
 NODE* moveToBeforeNodeLinkedList(LINKEDLIST *self, int index);
 
-LINKEDLIST* insertLinkedList(LINKEDLIST *self, int index, personalInfo* p_info);
+void insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info);
 
-LINKEDLIST* deleteLinkedList(LINKEDLIST *self, int index);
+void deleteLinkedList(LINKEDLIST *self, int index);
 
-LINKEDLIST* deleteAllLinkedList(LINKEDLIST *self);
+void deleteAllLinkedList(LINKEDLIST *self);
 
-personalInfo viewAtLinkedList(LINKEDLIST *self, int index);
+PERSONALINFO viewAtLinkedList(LINKEDLIST *self, int index);
 
 NODE* moveFirstLinkedList(LINKEDLIST *self);
 
