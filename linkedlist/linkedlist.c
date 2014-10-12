@@ -19,7 +19,7 @@ void printHeader(int printNum) {
 	printf("----------------------------------------------\n");
 }
 
-void printPersonInfo(personalInfo *info, int printNum) {
+void printPersonInfo(PERSONALINFO *info, int printNum) {
 	if ( printNum != -1 ) {
 		printf("%-4d  %-7s  %-12s  %-50s\n", printNum, info->name, info->phone, info->address);
 	} else {
@@ -45,30 +45,35 @@ void printLinedList(LINKEDLIST *self) {
 int main(void) {
 	LINKEDLIST *list;
 
-	personalInfo info1 = {"aaa", "0001110000", "xxx", USE};
-	personalInfo info2 = {"bbb", "0002220000", "yyy", USE};
-	personalInfo info3 = {"ccc", "0003330000", "zzz", USE};
+	PERSONALINFO info1 = {"aaa", "0001110000", "xxx", USE};
+	PERSONALINFO info2 = {"bbb", "0002220000", "yyy", USE};
+	PERSONALINFO info3 = {"ccc", "0003330000", "zzz", USE};
 
-	list = createLinkedList(list);
+	list = (LINKEDLIST*)malloc(sizeof(LINKEDLIST));
+	
+	createLinkedList(list);
 
-	list = appendLinkedList(list, &info1);
-	list = appendLinkedList(list, &info2);
-	list = insertLinkedList(list, 1, &info3);
+	appendLinkedList(list, &info1);
+	appendLinkedList(list, &info2);
+	insertLinkedList(list, 1, &info3);
 
 	printLinedList(list);
 
 	destroyLinkedList(list);
+	
+	free(list);
+	
 	return 0;
 }
 
-LINKEDLIST* createLinkedList(LINKEDLIST *self) {
-	self = (LINKEDLIST*)malloc(sizeof(LINKEDLIST));
+void createLinkedList(LINKEDLIST *self) {
+
 	self->head = (NODE*)malloc(sizeof(NODE));
 	self->tail = (NODE*)malloc(sizeof(NODE));
 
 	self->head->next = self->tail;
 	self->tail->next = NULL;
-	self->pos = self->head;
+	self->pos = self->head->next;
 	self->length = 0;
 
 	return self;
@@ -85,15 +90,13 @@ void destroyLinkedList(LINKEDLIST *self) {
 
 	self->pos = NULL;
 	self->length = 0;
-
-	free(self);
 }
 
-LINKEDLIST* appendLinkedList(LINKEDLIST *self, personalInfo* p_info) {
+void appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info) {
 	NODE *last = moveLastLinkedList(self);
 	NODE *new = (NODE*)malloc(sizeof(NODE));
 
-	new->info = (personalInfo*)malloc(sizeof(personalInfo));
+	new->info = (PERSONALINFO*)malloc(sizeof(PERSONALINFO));
 	strcpy(new->info->name, p_info->name);
 	strcpy(new->info->phone, p_info->phone);
 	strcpy(new->info->address, p_info->address);
@@ -117,8 +120,6 @@ NODE* moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) {
 
 	if ( index <= 0 ) {
 		target = self->head;
-	} else if ( index == 1 ) {
-		target = moveFirstLinkedList(self);
 	} else {
 		target = moveFirstLinkedList(self);
 		while ( i < index - 1 ) {
@@ -130,13 +131,13 @@ NODE* moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) {
 	return target;
 }
 
-LINKEDLIST* insertLinkedList(LINKEDLIST *self, int index, personalInfo* p_info) {
+void insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info) {
 	NODE *target;
 	NODE *new = (NODE*)malloc(sizeof(NODE));
 
 	target = moveToBeforeNodeLinkedList(self, index);
 
-	new->info = (personalInfo*)malloc(sizeof(personalInfo));
+	new->info = (PERSONALINFO*)malloc(sizeof(PERSONALINFO));
 	strcpy(new->info->name, p_info->name);
 	strcpy(new->info->phone, p_info->phone);
 	strcpy(new->info->address, p_info->address);
@@ -154,41 +155,37 @@ LINKEDLIST* insertLinkedList(LINKEDLIST *self, int index, personalInfo* p_info) 
 	return self;
 }
 
-LINKEDLIST* deleteLinkedList(LINKEDLIST *self, int index) {
+void deleteLinkedList(LINKEDLIST *self, int index) {
 	NODE *before;
 	NODE *target;
-	NODE *next;
 
 	before = moveToBeforeNodeLinkedList(self, index);
 
 	target = before->next;
-	next = target->next;
-
-	before->next = next;
+	before->next = target->next;
 
 	free(target->info);
 	target->next = NULL;
+	free(target);
 
 	self->pos = before;
 	self->length--;
 
 	before = NULL;
 	target = NULL;
-	next = NULL;
 
 	return self;
 
 }
 
-LINKEDLIST* deleteAllLinkedList(LINKEDLIST *self) {
-	int index = 0;
+void deleteAllLinkedList(LINKEDLIST *self) {
 
 	if ( self->length == 0 ) {
 		return self;
 	}
 
-	for ( index = 0; index < self->length; index++ ) {
-		self = deleteLinkedList(self, index);
+	while ( getLengthLinkedList(self) > 0 ) {
+		self = deleteLinkedList(self, 0);		
 	}
 
 	self->pos = self->head;
@@ -196,8 +193,8 @@ LINKEDLIST* deleteAllLinkedList(LINKEDLIST *self) {
 	return self;
 }
 
-personalInfo viewAtLinkedList(LINKEDLIST *self, int index) {
-	personalInfo info;
+PERSONALINFO viewAtLinkedList(LINKEDLIST *self, int index) {
+	PERSONALINFO info;
 	NODE *target;
 
 	target = moveToBeforeNodeLinkedList(self, index)->next;
