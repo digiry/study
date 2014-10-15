@@ -8,36 +8,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "addressbook.h"
+#include "linkedlist.h"
 
-#define MENU_INPUT 1
-#define MENU_REMOVE 2
-#define MENU_MODIFY 3
-#define MENU_SEARCH 4
-#define MENU_ALL_PRINT 5
-#define MENU_SAVE 6
-#define MENU_LOAD 7
-#define MENU_FINISH 0
+void printMainMenu();
 
-#define ERROR_NO_MENU 1
-#define ERROR_FULL 2
-#define ERROR_EMPTY 3
-#define ERROR_NOT_SEARCH 4
-#define ERROR_LOAD_FAIL 5
+void print_finish();
 
-#define USE 1
-#define NOT_USE 0
+void print_error(int error);
 
-#define TRUE 1
-#define FALSE 0
+int isEmptyAddressBook(LINKEDLIST *pBook);
 
-#define MAX_SIZE 10
+int isFullAddressBook(LINKEDLIST *pBook);
 
-typedef struct _tag_personalInfo {
-	char name[7];
-	char phone[12];
-	char address[50];
-	int flag;
-} personalInfo;
+int findFirstRecordable(LINKEDLIST *pBook);
+
+void inputPersonInfo(LINKEDLIST *pBook);
+
+int _searchPERSONALINFO(char *pName, LINKEDLIST *pBook, int *pFoundArray);
+
+void removePersonInfo(LINKEDLIST *pBook);
+
+void modifyPersonInfo(LINKEDLIST *pBook);
+
+void searchPersonInfo(LINKEDLIST *pBook);
+
+void printHeader(int printNum);
+
+void printAllPersonInfo(LINKEDLIST *pBook);
+
+void saveAddressBook(LINKEDLIST *pBook);
+
+void loadAddressBook(LINKEDLIST *pBook);
 
 void printMainMenu() {
 	printf("1. 주소정보를 입력한다.\n");
@@ -76,7 +78,7 @@ void print_error(int error) {
 	}
 }
 
-int isEmptyAddressBook(personalInfo *pBook) {
+int isEmptyAddressBook(PERSONALINFO *pBook) {
 	int isEmpty = TRUE;
 	int index = 0;
 
@@ -89,7 +91,7 @@ int isEmptyAddressBook(personalInfo *pBook) {
 	return isEmpty;
 }
 
-int isFullAddressBook(personalInfo *pBook) {
+int isFullAddressBook(PERSONALINFO *pBook) {
 	int isFull = TRUE;
 	int index = 0;
 
@@ -102,7 +104,7 @@ int isFullAddressBook(personalInfo *pBook) {
 	return isFull;
 }
 
-int findFirstRecordable(personalInfo *pBook) {
+int findFirstRecordable(PERSONALINFO *pBook) {
 	int index = 0;
 	int found = -1;
 
@@ -116,17 +118,9 @@ int findFirstRecordable(personalInfo *pBook) {
 	return found;
 }
 
-void inputPersonInfo(personalInfo *pBook) {
-	int index = 0;
-	personalInfo info;
+void inputPersonInfo(PERSONALINFO *pBook) {
+	PERSONALINFO info;
 	char yesno;
-
-	if ( isFullAddressBook(pBook) == TRUE ) {
-		print_error(ERROR_FULL);
-		return ;
-	}
-
-	index = findFirstRecordable(pBook);
 
 	printf("이름 : ");
 	scanf("%s", info.name);
@@ -144,15 +138,12 @@ void inputPersonInfo(personalInfo *pBook) {
 	yesno = getchar();
 
 	if ( yesno == 'y' ) {
-		strcpy(pBook[index].name, info.name);
-		strcpy(pBook[index].phone, info.phone);
-		strcpy(pBook[index].address, info.address);
-		pBook[index].flag = USE;
+		appendLinkedList(pBook, &info);
 		printf("추가되었습니다.\n");
 	}
 }
 
-int _searchPersonalInfo(char *pName, personalInfo *pBook, int *pFoundArray) {
+int _searchPERSONALINFO(char *pName, PERSONALINFO *pBook, int *pFoundArray) {
 	int index = 0;
 	int foundIndex = 0;
 
@@ -168,7 +159,7 @@ int _searchPersonalInfo(char *pName, personalInfo *pBook, int *pFoundArray) {
 	return foundIndex;
 }
 
-void removePersonInfo(personalInfo *pBook) {
+void removePersonInfo(PERSONALINFO *pBook) {
 	char name[7];
 	int foundArray[MAX_SIZE] = {-1,};
 	int index = 0;
@@ -176,7 +167,7 @@ void removePersonInfo(personalInfo *pBook) {
 	int removeIndex = -1;
 	char yesno;
 
-	if ( isEmptyAddressBook(pBook) == TRUE ) {
+	if ( getLengthLinkedList(pBook) == 0 ) {
 		print_error(ERROR_EMPTY);
 		return ;
 	}
@@ -184,7 +175,7 @@ void removePersonInfo(personalInfo *pBook) {
 	printf("삭제할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPersonalInfo(name, pBook, foundArray);
+	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
 
 	if ( foundLength == 0 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -210,14 +201,14 @@ void removePersonInfo(personalInfo *pBook) {
 	}
 }
 
-void modifyPersonInfo(personalInfo *pBook) {
+void modifyPersonInfo(PERSONALINFO *pBook) {
 	char name[7];
 	int foundArray[MAX_SIZE] = {-1,};
 	int index = 0;
 	int foundLength = 0;
 	int modifyIndex = -1;
 	char yesno;
-	personalInfo info;
+	PERSONALINFO info;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
 		print_error(ERROR_EMPTY);
@@ -227,7 +218,7 @@ void modifyPersonInfo(personalInfo *pBook) {
 	printf("수정할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPersonalInfo(name, pBook, foundArray);
+	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
 
 	if ( foundLength == 0 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -267,7 +258,7 @@ void modifyPersonInfo(personalInfo *pBook) {
 	}
 }
 
-void searchPersonInfo(personalInfo *pBook) {
+void searchPersonInfo(PERSONALINFO *pBook) {
 	char name[7];
 	int foundArray[MAX_SIZE] = {-1,};
 	int index = 0;
@@ -281,7 +272,7 @@ void searchPersonInfo(personalInfo *pBook) {
 	printf("검색할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPersonalInfo(name, pBook, foundArray);
+	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
 
 	if ( foundLength == 0 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -304,7 +295,7 @@ void printHeader(int printNum) {
 	printf("----------------------------------------------\n");
 }
 
-void printPersonInfo(personalInfo info, int printNum) {
+void printPersonInfo(PERSONALINFO info, int printNum) {
 	if ( printNum != -1 ) {
 		printf("%-4d  %-7s  %-12s  %-50s\n", printNum, info.name, info.phone, info.address);
 	} else {
@@ -312,7 +303,7 @@ void printPersonInfo(personalInfo info, int printNum) {
 	}
 }
 
-void printAllPersonInfo(personalInfo *pBook) {
+void printAllPersonInfo(PERSONALINFO *pBook) {
 	int index = 0;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
@@ -328,7 +319,7 @@ void printAllPersonInfo(personalInfo *pBook) {
 	}
 }
 
-void removeAll(personalInfo *pBook) {
+void removeAll(PERSONALINFO *pBook) {
 	int index = 0;
 
 	for ( index = 0; index < MAX_SIZE; index++ ) {
@@ -336,7 +327,7 @@ void removeAll(personalInfo *pBook) {
 	}
 }
 
-void saveAddressBook(personalInfo *pBook) {
+void saveAddressBook(PERSONALINFO *pBook) {
 	FILE *fp = NULL;
 	int index = 0;
 
@@ -359,7 +350,7 @@ void saveAddressBook(personalInfo *pBook) {
 	printf("addressbook.dat 파일에 저장하였습니다.\n");
 }
 
-void loadAddressBook(personalInfo *pBook) {
+void loadAddressBook(PERSONALINFO *pBook) {
 	FILE *fp = NULL;
 	int index = 0;
 
@@ -386,19 +377,9 @@ void loadAddressBook(personalInfo *pBook) {
 
 int main(void) {
 	int menu = -1;
-	personalInfo book[MAX_SIZE] = {0,};
-//	personalInfo book[MAX_SIZE] = {
-//			{"aaa", "0001112222", "abc", USE},
-//			{"bbb", "0001113333", "abc", USE},
-//			{"ccc", "0001114444", "abc", USE},
-//			{"ddd", "0001115555", "abc", USE},
-//			{"eee", "0001116666", "abc", USE},
-//			{"fff", "0001117777", "abc", USE},
-//			{"ggg", "0001118888", "abc", USE},
-//			{"hhh", "0001119999", "abc", USE},
-//			{"aaa", "0001110000", "abc", USE},
-//			{"jjj", "0002220000", "abc", USE}
-//	};
+	LINKEDLIST *book = (LINKEDLIST*)malloc(sizeof(LINKEDLIST));
+
+	createLinkedList(book);
 
 	while ( menu != 0 ) {
 		printMainMenu();
@@ -442,5 +423,10 @@ int main(void) {
 			getchar();
 		}
 	}
+
+	destroyLinkedList(book);
+
+	free(book);
+
 	return EXIT_SUCCESS;
 }
