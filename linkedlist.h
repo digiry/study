@@ -5,6 +5,8 @@
 
 #include "addressbook.h"
 
+#define NOT_FOUND -1
+
 typedef struct _tag_NODE NODE;
 typedef struct _tag_LINKEDLIST LINKEDLIST;
 
@@ -42,10 +44,14 @@ NODE* moveLastLinkedList(LINKEDLIST *self);
 
 NODE* nextLinkedList(LINKEDLIST *self);
 
+NODE* moveToLinkedList(LINKEDLIST *self, int dstIndex);
+
 int isTailLinkedList(LINKEDLIST *self);
 
 int getLengthLinkedList(LINKEDLIST *self);
 
-NODE* findNameLinkedList(LINKEDLIST *self, NODE* beginNode, char* p_name);
+NODE* getCurrentPosition(LINKEDLIST *self);
+
+int findNameLinkedList(LINKEDLIST *self, int beginIndex, char* p_name);
 
 #endif // __LINKEDLIST__
