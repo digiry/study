@@ -48,9 +48,9 @@ void printLinedList(LINKEDLIST *self) {
 int main(void) {
 	LINKEDLIST *list;
 
-	PERSONALINFO info1 = {"aaa", "0001110000", "xxx", USE};
-	PERSONALINFO info2 = {"bbb", "0002220000", "yyy", USE};
-	PERSONALINFO info3 = {"ccc", "0003330000", "zzz", USE};
+	PERSONALINFO info1 = {"aaa", "0001110000", "xxx", 1};
+	PERSONALINFO info2 = {"bbb", "0002220000", "yyy", 2};
+	PERSONALINFO info3 = {"ccc", "0003330000", "zzz", 3};
 
 	list = (LINKEDLIST*)malloc(sizeof(LINKEDLIST));
 
@@ -103,7 +103,7 @@ void appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info) {
 	strcpy(new->info->name, p_info->name);
 	strcpy(new->info->phone, p_info->phone);
 	strcpy(new->info->address, p_info->address);
-	new->info->flag = p_info->flag;
+	new->info->number = p_info->number;
 	self->length++;
 
 	new->next = last->next;
@@ -142,7 +142,7 @@ void insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info) {
 	strcpy(new->info->name, p_info->name);
 	strcpy(new->info->phone, p_info->phone);
 	strcpy(new->info->address, p_info->address);
-	new->info->flag = p_info->flag;
+	new->info->number = p_info->number;
 	self->length++;
 
 	new->next = target->next;
@@ -196,7 +196,7 @@ PERSONALINFO viewAtLinkedList(LINKEDLIST *self, int index) {
 	strcpy(info.name, target->info->name);
 	strcpy(info.phone, target->info->phone);
 	strcpy(info.address, target->info->address);
-	info.flag = target->info->flag;
+	info.number = target->info->number;
 
 	self->pos = target;
 
@@ -230,6 +230,22 @@ NODE* nextLinkedList(LINKEDLIST *self) {
 	return self->pos;
 }
 
+NODE* moveToLinkedList(LINKEDLIST *self, int dstIndex) {
+	NODE *target;
+	int index = 0;
+
+	if ( dstIndex <= 0 || dstIndex >= self->length ) {
+		return NULL;
+	}
+
+	target = moveFirstLinkedList(self);
+	for (index = 0; index < dstIndex; index++ ) {
+		target = nextLinkedList(self);
+	}
+
+	return target;
+}
+
 int isTailLinkedList(LINKEDLIST *self) {
 	int isTail = FALSE;
 
@@ -244,14 +260,33 @@ int getLengthLinkedList(LINKEDLIST *self) {
 	return self->length;
 }
 
-NODE* findNameLinkedList(LINKEDLIST *self, NODE* beginNode, char* p_name) {
-	self->pos = beginNode;
+NODE* getCurrentPosition(LINKEDLIST *self) {
+	return self->pos;
+}
 
-	while ( isTailLinkedList(self) != TRUE ) {
-		if ( strcmp(self->pos->info->name, p_name) == 0 ) {
-			break;
-		}
+int findNameLinkedList(LINKEDLIST *self, int beginIndex, char* p_name) {
+	int index = NOT_FOUND;
+	NODE *target;
+
+	target = moveToLinkedList(beginIndex);
+
+	if ( target == NULL ) {
+		return index;
 	}
 
-	return self->pos;
+	index = beginIndex;
+
+	while ( isTailLinkedList(self) != TRUE ) {
+		if ( strcmp(target->info->name, p_name) == 0 ) {
+			break;
+		}
+		target = nextLinkedList(self);
+		index++;
+	}
+
+	if ( isTailLinkedList(self) == TRUE ) {
+		index = NOT_FOUND;
+	}
+
+	return index;
 }
