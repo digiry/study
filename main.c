@@ -25,7 +25,7 @@ int findFirstRecordable(LINKEDLIST *pBook);
 
 void inputPersonInfo(LINKEDLIST *pBook);
 
-int _searchPERSONALINFO(char *pName, LINKEDLIST *pBook, int *pFoundArray);
+int _searchPersonInfo(char *pName, LINKEDLIST *pBook, int *pFoundArray);
 
 void removePersonInfo(LINKEDLIST *pBook);
 
@@ -40,6 +40,8 @@ void printAllPersonInfo(LINKEDLIST *pBook);
 void saveAddressBook(LINKEDLIST *pBook);
 
 void loadAddressBook(LINKEDLIST *pBook);
+
+void deletePersonInfoWith(self, removeNumber);
 
 void printMainMenu() {
 	printf("1. 주소정보를 입력한다.\n");
@@ -121,6 +123,16 @@ int findFirstRecordable(PERSONALINFO *pBook) {
 void inputPersonInfo(PERSONALINFO *pBook) {
 	PERSONALINFO info;
 	char yesno;
+	NODE *last;
+	int number;
+
+	last = moveLastLinkedList(pBook);
+
+	if ( last->next == NULL ) {
+		number = 1;
+	} else {
+		number = last->info->number + 1;
+	}
 
 	printf("이름 : ");
 	scanf("%s", info.name);
@@ -130,8 +142,8 @@ void inputPersonInfo(PERSONALINFO *pBook) {
 	scanf("%s", info.address);
 
 	printf("입력된 정보\n");
-	printHeader(FALSE);
-	printPersonInfo(info, -1);
+	printHeader();
+	printPersonInfo(info);
 
 	fflush(stdin);
 	printf("추가하시겠습니까 ? (y/n) :");
@@ -143,29 +155,28 @@ void inputPersonInfo(PERSONALINFO *pBook) {
 	}
 }
 
-int _searchPERSONALINFO(char *pName, PERSONALINFO *pBook, int *pFoundArray) {
+void deletePersonInfoWith(self, removeNumber) {
 	int index = 0;
-	int foundIndex = 0;
+	NODE *target;
 
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == USE ) {
-			if ( strcmp(pName, pBook[index].name) == 0 ) {
-				pFoundArray[foundIndex] = index;
-				foundIndex++;
-			}
+	target = moveFirstLinkedList(self);
+	while( isTailLinkedList(self) != TRUE ) {
+		if ( target->info->number == removeNumber ) {
+			deleteLinkedList(self, index);
+			break;
+		} else {
+			target = nextLinkedList(self);
+			index++;
 		}
 	}
-
-	return foundIndex;
 }
 
 void removePersonInfo(PERSONALINFO *pBook) {
 	char name[7];
-	int foundArray[MAX_SIZE] = {-1,};
-	int index = 0;
-	int foundLength = 0;
-	int removeIndex = -1;
+	int searchIndex = 0;
+	int removeNumber = -1;
 	char yesno;
+	NODE *searchTarget;
 
 	if ( getLengthLinkedList(pBook) == 0 ) {
 		print_error(ERROR_EMPTY);
@@ -175,28 +186,26 @@ void removePersonInfo(PERSONALINFO *pBook) {
 	printf("삭제할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
+	printHeader();
 
-	if ( foundLength == 0 ) {
-		print_error(ERROR_NOT_SEARCH);
-		return ;
-	}
-
-	printHeader(TRUE);
-	for ( index = 0; index < foundLength; index++ ) {
-		printPersonInfo(pBook[foundArray[index]], index + 1);
+	while ( searchIndex != NOT_FOUND ) {
+		searchIndex = findNameLinkedList(pBook, searchIndex, name);
+		if ( searchIndex != NOT_FOUND ) {
+			searchTarget = getCurrentPosition(pBook);
+			printPersonInfo(searchTarget->info);
+		}
 	}
 
 	printf("삭제할 번호를 입력하시오.\n");
 	printf("번호 : ");
-	scanf("%d", &removeIndex);
+	scanf("%d", &removeNumber);
 
 	fflush(stdin);
 	printf("삭제하겠습니까? (y/n) :");
 	yesno = getchar();
 
 	if ( yesno == 'y' ) {
-		pBook[foundArray[removeIndex - 1]].flag = NOT_USE;
+		deletePersonInfoWith(pBook, removeNumber);
 		printf("삭제되었습니다.\n");
 	}
 }
@@ -218,7 +227,7 @@ void modifyPersonInfo(PERSONALINFO *pBook) {
 	printf("수정할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
+	foundLength = _searchPersonInfo(name, pBook, foundArray);
 
 	if ( foundLength == 0 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -272,7 +281,7 @@ void searchPersonInfo(PERSONALINFO *pBook) {
 	printf("검색할 이름: ");
 	scanf("%s", name);
 
-	foundLength = _searchPERSONALINFO(name, pBook, foundArray);
+	foundLength = _searchPersonInfo(name, pBook, foundArray);
 
 	if ( foundLength == 0 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -285,25 +294,17 @@ void searchPersonInfo(PERSONALINFO *pBook) {
 	}
 }
 
-void printHeader(int printNum) {
+void printHeader() {
 	printf("----------------------------------------------\n");
-	if ( printNum == TRUE ) {
-		printf("번호  이름     전화번호      주소\n");
-	} else {
-		printf("이름     전화번호      주소\n");
-	}
+	printf("번호  이름     전화번호      주소\n");
 	printf("----------------------------------------------\n");
 }
 
-void printPersonInfo(PERSONALINFO info, int printNum) {
-	if ( printNum != -1 ) {
-		printf("%-4d  %-7s  %-12s  %-50s\n", printNum, info.name, info.phone, info.address);
-	} else {
-		printf("%-8s  %-12s  %-50s\n", info.name, info.phone, info.address);
-	}
+void printPersonInfo(PERSONALINFO *info) {
+	printf("%-4d  %-7s  %-12s  %-50s\n", info->number, info->name, info->phone, info->address);
 }
 
-void printAllPersonInfo(PERSONALINFO *pBook) {
+void printAllPersonInfo(LINKEDLIST *pBook) {
 	int index = 0;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
