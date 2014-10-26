@@ -4,7 +4,7 @@
  *  Created on: 2014. 10. 10.
  *      Author: suandkyu
  */
-#include "header\linkedlist.h"
+#include "header/linkedlist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -195,7 +195,6 @@ PERSONALINFO viewAtLinkedList(LINKEDLIST *self, int index) {
 	strcpy(info.name, target->info->name);
 	strcpy(info.phone, target->info->phone);
 	strcpy(info.address, target->info->address);
-	info.flag = target->info->flag;
 
 	self->pos = target;
 
@@ -243,14 +242,31 @@ int getLengthLinkedList(LINKEDLIST *self) {
 	return self->length;
 }
 
-NODE* findNameLinkedList(LINKEDLIST *self, NODE* beginNode, char* p_name) {
-	self->pos = beginNode;
+NODE* getNodeLinkedList(LINKEDLIST *self, int index) {
+	NODE *target;
 
+	target = moveToBeforeNodeLinkedList(self, index)->next;
+
+	return target;
+}
+
+int findNameLinkedList(LINKEDLIST *self, char* p_name) {
+	int index = 0;
+	int isFound = FALSE;
+
+	moveFirstLinkedList(self);
 	while ( isTailLinkedList(self) != TRUE ) {
 		if ( strcmp(self->pos->info->name, p_name) == 0 ) {
+			isFound = TRUE;
 			break;
 		}
+		nextLinkedList(self);
+		index++;
 	}
 
-	return self->pos;
+	if ( isFound == FALSE ) {
+		index = -1;
+	}
+
+	return index;
 }

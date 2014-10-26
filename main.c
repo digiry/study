@@ -8,7 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "header\addressbook.h"
+#include "header/addressbook.h"
+#include "header/linkedlist.h"
 
 void printMainMenu() {
 	printf("1. 주소정보를 입력한다.\n");
@@ -47,57 +48,20 @@ void print_error(int error) {
 	}
 }
 
-int isEmptyAddressBook(PERSONALINFO *pBook) {
+int isEmptyAddressBook(LINKEDLIST *pBook) {
 	int isEmpty = TRUE;
-	int index = 0;
 
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == USE ) {
-			isEmpty = FALSE;
-			break;
-		}
+	if ( getLengthLinkedList(pBook) > 0 ) {
+		isEmpty = FALSE;
 	}
+
 	return isEmpty;
 }
 
-int isFullAddressBook(PERSONALINFO *pBook) {
-	int isFull = TRUE;
-	int index = 0;
-
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == NOT_USE ) {
-			isFull = FALSE;
-			break;
-		}
-	}
-	return isFull;
-}
-
-int findFirstRecordable(PERSONALINFO *pBook) {
-	int index = 0;
-	int found = -1;
-
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == NOT_USE ) {
-			found = index;
-			break;
-		}
-	}
-
-	return found;
-}
-
-void inputPersonInfo(PERSONALINFO *pBook) {
+void inputPersonInfo(LINKEDLIST *pBook) {
 	int index = 0;
 	PERSONALINFO info;
 	char yesno;
-
-	if ( isFullAddressBook(pBook) == TRUE ) {
-		print_error(ERROR_FULL);
-		return ;
-	}
-
-	index = findFirstRecordable(pBook);
 
 	printf("이름 : ");
 	scanf("%s", info.name);
@@ -115,28 +79,9 @@ void inputPersonInfo(PERSONALINFO *pBook) {
 	yesno = getchar();
 
 	if ( yesno == 'y' ) {
-		strcpy(pBook[index].name, info.name);
-		strcpy(pBook[index].phone, info.phone);
-		strcpy(pBook[index].address, info.address);
-		pBook[index].flag = USE;
+		appendLinkedList(pBook, &info);
 		printf("추가되었습니다.\n");
 	}
-}
-
-int _searchPersonInfo(PERSONALINFO *pBook, char *pName) {
-	int index = 0;
-	int foundIndex = -1;
-
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == USE ) {
-			if ( strcmp(pName, pBook[index].name) == 0 ) {
-				foundIndex = index;
-				break;
-			}
-		}
-	}
-
-	return foundIndex;
 }
 
 void removePersonInfo(PERSONALINFO *pBook) {
@@ -152,7 +97,7 @@ void removePersonInfo(PERSONALINFO *pBook) {
 	printf("삭제할 이름: ");
 	scanf("%s", name);
 
-	removeIndex = _searchPersonInfo(pBook, name);
+	removeIndex = findNameLinkedList(pBook, name);
 
 	if ( removeIndex == -1 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -160,14 +105,14 @@ void removePersonInfo(PERSONALINFO *pBook) {
 	}
 
 	printHeader(FALSE);
-	printPersonInfo(pBook[removeIndex], FALSE);
+	printPersonInfo(viewAtLinkedList(pBook, removeIndex), FALSE);
 
 	fflush(stdin);
 	printf("삭제하겠습니까? (y/n) :");
 	yesno = getchar();
 
 	if ( yesno == 'y' ) {
-		pBook[removeIndex].flag = NOT_USE;
+		deleteLinkedList(pBook, removeIndex);
 		printf("삭제되었습니다.\n");
 	}
 }
@@ -177,6 +122,7 @@ void modifyPersonInfo(PERSONALINFO *pBook) {
 	int modifyIndex = -1;
 	char yesno;
 	PERSONALINFO info;
+	NODE *target;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
 		print_error(ERROR_EMPTY);
@@ -186,7 +132,7 @@ void modifyPersonInfo(PERSONALINFO *pBook) {
 	printf("수정할 이름: ");
 	scanf("%s", name);
 
-	modifyIndex = _searchPersonInfo(pBook, name);
+	modifyIndex = findNameLinkedList(pBook, name);
 
 	if ( modifyIndex == -1 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -194,7 +140,7 @@ void modifyPersonInfo(PERSONALINFO *pBook) {
 	}
 
 	printHeader(FALSE);
-	printPersonInfo(pBook[modifyIndex], FALSE);
+	printPersonInfo(viewAtLinkedList(pBook, modifyIndex), FALSE);
 
 	fflush(stdin);
 	printf("수정하겠습니까? (y/n) :");
@@ -212,15 +158,17 @@ void modifyPersonInfo(PERSONALINFO *pBook) {
 		printHeader(FALSE);
 		printPersonInfo(info, FALSE);
 
-		strcpy(pBook[modifyIndex].name, info.name);
-		strcpy(pBook[modifyIndex].phone, info.phone);
-		strcpy(pBook[modifyIndex].address, info.address);
+		target = getNodeLinkedList(pBook, modifyIndex);
+
+		strcpy(target->info->name, info.name);
+		strcpy(target->info->phone, info.phone);
+		strcpy(target->info->address, info.address);
 
 		printf("수정되었습니다.\n");
 	}
 }
 
-void searchPersonInfo(PERSONALINFO *pBook) {
+void searchPersonInfo(LINKEDLIST *pBook) {
 	char name[7];
 	int foundIndex = -1;
 
@@ -232,7 +180,7 @@ void searchPersonInfo(PERSONALINFO *pBook) {
 	printf("검색할 이름: ");
 	scanf("%s", name);
 
-	foundIndex = _searchPersonInfo(pBook, name);
+	foundIndex = findNameLinkedList(pBook, name);
 
 	if ( foundIndex == -1 ) {
 		print_error(ERROR_NOT_SEARCH);
@@ -240,7 +188,7 @@ void searchPersonInfo(PERSONALINFO *pBook) {
 	}
 
 	printHeader(FALSE);
-	printPersonInfo(pBook[foundIndex], FALSE);
+	printPersonInfo(viewAtLinkedList(pBook, foundIndex), FALSE);
 }
 
 void printHeader(int printNum) {
@@ -261,8 +209,18 @@ void printPersonInfo(PERSONALINFO info, int printNum) {
 	}
 }
 
+void printPersonInfoPointer(PERSONALINFO *info, int printNum) {
+	if ( printNum != FALSE ) {
+		printf("%-4d  %-7s  %-12s  %-50s\n", printNum, info->name, info->phone, info->address);
+	} else {
+		printf("%-8s  %-12s  %-50s\n", info->name, info->phone, info->address);
+	}
+}
+
+
 void printAllPersonInfo(PERSONALINFO *pBook) {
-	int index = 0;
+	int number = 1;
+	NODE *target;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
 		print_error(ERROR_EMPTY);
@@ -270,24 +228,18 @@ void printAllPersonInfo(PERSONALINFO *pBook) {
 	}
 
 	printHeader(TRUE);
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag != NOT_USE ) {
-			printPersonInfo(pBook[index], index + 1);
-		}
+	target = moveFirstLinkedList(pBook);
+	while ( isTailLinkedList(pBook) != TRUE ) {
+		printPersonInfoPointer(target->info, number);
+		target = nextLinkedList(pBook);
+		number++;
 	}
 }
 
-void removeAll(PERSONALINFO *pBook) {
-	int index = 0;
-
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		pBook[index].flag = NOT_USE;
-	}
-}
-
-void saveAddressBook(PERSONALINFO *pBook) {
+void saveAddressBook(LINKEDLIST *pBook) {
 	FILE *fp = NULL;
 	int index = 0;
+	NODE *target;
 
 	if ( isEmptyAddressBook(pBook) == TRUE ) {
 		print_error(ERROR_EMPTY);
@@ -296,23 +248,23 @@ void saveAddressBook(PERSONALINFO *pBook) {
 
 	fp = fopen("addressbook.dat", "w");
 
-	for ( index = 0; index < MAX_SIZE; index++ ) {
-		if ( pBook[index].flag == USE ) {
-			fprintf(fp, "%s\n", pBook[index].name);
-			fprintf(fp, "%s\n", pBook[index].phone);
-			fprintf(fp, "%s\n", pBook[index].address);
-		}
+	target = moveFirstLinkedList(pBook);
+	while ( isTailLinkedList(pBook) != TRUE ) {
+		fprintf(fp, "%s\n", target->info->name);
+		fprintf(fp, "%s\n", target->info->phone);
+		fprintf(fp, "%s\n", target->info->address);
+		target = nextLinkedList(pBook);
 	}
 
 	fclose(fp);
 	printf("addressbook.dat 파일에 저장하였습니다.\n");
 }
 
-void loadAddressBook(PERSONALINFO *pBook) {
+void loadAddressBook(LINKEDLIST *pBook) {
 	FILE *fp = NULL;
-	int index = 0;
+	PERSONALINFO info;
 
-	removeAll(pBook);
+	deleteAllLinkedList(pBook);
 
 	fp = fopen("addressbook.dat", "r");
 
@@ -322,21 +274,24 @@ void loadAddressBook(PERSONALINFO *pBook) {
 	}
 
 	while( ! feof(fp) ) {
-		fscanf(fp, "%s", pBook[index].name);
-		fscanf(fp, "%s", pBook[index].phone);
-		fscanf(fp, "%s", pBook[index].address);
-		pBook[index].flag = USE;
-		index++;
+		memset(&info, 0x00, sizeof(PERSONALINFO));
+		fscanf(fp, "%s", info.name);
+		fscanf(fp, "%s", info.phone);
+		fscanf(fp, "%s", info.address);
+
+		if ( strcmp(info.name, "") ==  0 ) {
+			break;
+		}
+		appendLinkedList(pBook, &info);
 	}
 
 	fclose(fp);
 	printf("addressbook.dat 파일을 불러왔습니다.\n");
 }
 
-int main(void) {
-	int menu = -1;
-//	PERSONALINFO book[MAX_SIZE] = {0,};
-	PERSONALINFO book[MAX_SIZE] = {
+void testSetup(LINKEDLIST *list) {
+	int index = 0;
+	PERSONALINFO sample[MAX_SIZE] = {
 			{"aaa", "0001112222", "abc", USE},
 			{"bbb", "0001113333", "abc", USE},
 			{"ccc", "0001114444", "abc", USE},
@@ -348,6 +303,33 @@ int main(void) {
 			{"iii", "0001110000", "abc", USE},
 			{"jjj", "0002220000", "abc", USE}
 	};
+
+	for ( index = 0; index < MAX_SIZE; index++ ) {
+		appendLinkedList(list, &(sample[index]));
+	}
+}
+
+int main(void) {
+	int menu = -1;
+	LINKEDLIST *book;
+	book = (LINKEDLIST*)malloc(sizeof(LINKEDLIST));
+
+	createLinkedList(book);
+//	PERSONALINFO book[MAX_SIZE] = {0,};
+//	PERSONALINFO book[MAX_SIZE] = {
+//			{"aaa", "0001112222", "abc", USE},
+//			{"bbb", "0001113333", "abc", USE},
+//			{"ccc", "0001114444", "abc", USE},
+//			{"ddd", "0001115555", "abc", USE},
+//			{"eee", "0001116666", "abc", USE},
+//			{"fff", "0001117777", "abc", USE},
+//			{"ggg", "0001118888", "abc", USE},
+//			{"hhh", "0001119999", "abc", USE},
+//			{"iii", "0001110000", "abc", USE},
+//			{"jjj", "0002220000", "abc", USE}
+//	};
+
+	testSetup(book);
 
 	while ( menu != 0 ) {
 		printMainMenu();

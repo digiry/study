@@ -52,6 +52,8 @@ int isTailLinkedList(LINKEDLIST *self);
 
 int getLengthLinkedList(LINKEDLIST *self);
 
-NODE* findNameLinkedList(LINKEDLIST *self, NODE* beginNode, char* p_name);
+NODE* getNodeLinkedList(LINKEDLIST *self, int index);
+
+int findNameLinkedList(LINKEDLIST *self, char* p_name);
 
 #endif // __LINKEDLIST__
