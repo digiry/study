@@ -37,7 +37,7 @@ typedef struct _tag_PERSONALINFO {
 	char name[7];
 	char phone[12];
 	char address[50];
-	int number;
+	int flag;
 } PERSONALINFO;
 
 #endif /* ADDRESSBOOK_H_ */
