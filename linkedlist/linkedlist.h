@@ -7,6 +7,8 @@
 #define TRUE 1
 #define FALSE 0
 
+#define DEBUG_LINKEDLIST 1
+
 typedef struct _tag_PERSONALINFO PERSONALINFO;
 typedef struct _tag_NODE NODE;
 typedef struct _tag_LINKEDLIST LINKEDLIST;

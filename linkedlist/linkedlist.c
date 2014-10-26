@@ -9,12 +9,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef DEBUG_LINKEDLIST
+
 void printHeader(int printNum) {
 	printf("----------------------------------------------\n");
 	if ( printNum == TRUE ) {
-		printf("번호  이름     전화번호      주소\n");
+		printf("踰덊샇  �씠由�     �쟾�솕踰덊샇      二쇱냼\n");
 	} else {
-		printf("이름     전화번호      주소\n");
+		printf("�씠由�     �쟾�솕踰덊샇      二쇱냼\n");
 	}
 	printf("----------------------------------------------\n");
 }
@@ -66,6 +68,8 @@ int main(void) {
 	return 0;
 }
 
+#endif // DEBUG_LINKEDLIST
+
 void createLinkedList(LINKEDLIST *self) {
 
 	self->head = (NODE*)malloc(sizeof(NODE));
@@ -75,14 +79,12 @@ void createLinkedList(LINKEDLIST *self) {
 	self->tail->next = NULL;
 	self->pos = self->head->next;
 	self->length = 0;
-
-	return self;
 }
 
 void destroyLinkedList(LINKEDLIST *self) {
 
 	if ( self->length > 0 ) {
-		self = deleteAllLinkedList(self);
+		deleteAllLinkedList(self);
 	}
 
 	free(self->head);
@@ -110,8 +112,6 @@ void appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info) {
 
 	last = NULL;
 	new = NULL;
-
-	return self;
 }
 
 NODE* moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) {
@@ -151,8 +151,6 @@ void insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info) {
 
 	target = NULL;
 	new = NULL;
-
-	return self;
 }
 
 void deleteLinkedList(LINKEDLIST *self, int index) {
@@ -173,24 +171,19 @@ void deleteLinkedList(LINKEDLIST *self, int index) {
 
 	before = NULL;
 	target = NULL;
-
-	return self;
-
 }
 
 void deleteAllLinkedList(LINKEDLIST *self) {
 
 	if ( self->length == 0 ) {
-		return self;
+		return ;
 	}
 
 	while ( getLengthLinkedList(self) > 0 ) {
-		self = deleteLinkedList(self, 0);		
+		deleteLinkedList(self, 0);
 	}
 
 	self->pos = self->head;
-
-	return self;
 }
 
 PERSONALINFO viewAtLinkedList(LINKEDLIST *self, int index) {
