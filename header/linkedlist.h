@@ -7,18 +7,12 @@
 #define TRUE 1
 #define FALSE 0
 
+#include "addressbook.h"
+
 #define DEBUG_LINKEDLIST 1
 
-typedef struct _tag_PERSONALINFO PERSONALINFO;
 typedef struct _tag_NODE NODE;
 typedef struct _tag_LINKEDLIST LINKEDLIST;
-
-typedef struct _tag_PERSONALINFO {
-	char name[7];
-	char phone[12];
-	char address[50];
-	int flag;
-} PERSONALINFO;
 
 typedef struct _tag_NODE {
 	PERSONALINFO *info;

@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "addressbook.h"
+#include "header\addressbook.h"
 
 void printMainMenu() {
 	printf("1. 주소정보를 입력한다.\n");
@@ -345,7 +345,7 @@ int main(void) {
 			{"fff", "0001117777", "abc", USE},
 			{"ggg", "0001118888", "abc", USE},
 			{"hhh", "0001119999", "abc", USE},
-			{"aaa", "0001110000", "abc", USE},
+			{"iii", "0001110000", "abc", USE},
 			{"jjj", "0002220000", "abc", USE}
 	};
 

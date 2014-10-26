@@ -4,25 +4,25 @@
  *  Created on: 2014. 10. 10.
  *      Author: suandkyu
  */
-#include "linkedlist.h"
+#include "header\linkedlist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #ifndef DEBUG_LINKEDLIST
 
-void printHeader(int printNum) {
+void printHeaderLinkedList(int printNum) {
 	printf("----------------------------------------------\n");
 	if ( printNum == TRUE ) {
-		printf("踰덊샇  �씠由�     �쟾�솕踰덊샇      二쇱냼\n");
+		printf("번호  이름     전화번호      주소\n");
 	} else {
-		printf("�씠由�     �쟾�솕踰덊샇      二쇱냼\n");
+		printf("이름     전화번호      주소\n");
 	}
 	printf("----------------------------------------------\n");
 }
 
-void printPersonInfo(PERSONALINFO *info, int printNum) {
-	if ( printNum != -1 ) {
+void printPersonInfoLinkedList(PERSONALINFO *info, int printNum) {
+	if ( printNum != FALSE ) {
 		printf("%-4d  %-7s  %-12s  %-50s\n", printNum, info->name, info->phone, info->address);
 	} else {
 		printf("%-8s  %-12s  %-50s\n", info->name, info->phone, info->address);
@@ -33,11 +33,11 @@ void printLinedList(LINKEDLIST *self) {
 	int number = 1;
 	NODE *target;
 
-	printHeader(TRUE);
+	printHeaderLinkedList(TRUE);
 
 	target = moveFirstLinkedList(self);
 	while ( isTailLinkedList(self) != TRUE ) {
-		printPersonInfo(target->info, number);
+		printPersonInfoLinkedList(target->info, number);
 		target = nextLinkedList(self);
 		number++;
 	}
