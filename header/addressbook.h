@@ -8,6 +8,8 @@
 #ifndef ADDRESSBOOK_H_
 #define ADDRESSBOOK_H_
 
+#include "customstring.h"
+
 #define MENU_INPUT 1
 #define MENU_REMOVE 2
 #define MENU_MODIFY 3

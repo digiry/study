@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef DEBUG_LINKEDLIST
+#ifdef DEBUG_LINKEDLIST
 
 void printHeaderLinkedList(int printNum) {
 	printf("----------------------------------------------\n");
@@ -102,7 +102,6 @@ void appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info) {
 	strcpy(new->info->name, p_info->name);
 	strcpy(new->info->phone, p_info->phone);
 	strcpy(new->info->address, p_info->address);
-	new->info->flag = p_info->flag;
 	self->length++;
 
 	new->next = last->next;

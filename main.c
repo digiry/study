@@ -309,6 +309,8 @@ void testSetup(LINKEDLIST *list) {
 	}
 }
 
+#if 1
+
 int main(void) {
 	int menu = -1;
 	LINKEDLIST *book;
@@ -375,3 +377,5 @@ int main(void) {
 	}
 	return EXIT_SUCCESS;
 }
+
+#endif

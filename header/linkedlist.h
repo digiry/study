@@ -9,7 +9,7 @@
 
 #include "addressbook.h"
 
-#define DEBUG_LINKEDLIST 1
+// #define DEBUG_LINKEDLIST 1
 
 typedef struct _tag_NODE NODE;
 typedef struct _tag_LINKEDLIST LINKEDLIST;
