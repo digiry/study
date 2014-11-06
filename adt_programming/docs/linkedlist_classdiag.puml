@@ -16,24 +16,46 @@ head : NODE *
 tail : NODE *
 pos : NODE *
 length : int
-createLinkedList(LINKEDLIST *self)
-destroyLinkedList(LINKEDLIST *self)
-appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info)
-moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) : NODE*
-insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info)
-deleteLinkedList(LINKEDLIST *self, int index)
-deleteAllLinkedList(LINKEDLIST *self)
-viewAtLinkedList(LINKEDLIST *self, int index) : PERSONALINFO
-moveFirstLinkedList(LINKEDLIST *self) : NODE*
-moveLastLinkedList(LINKEDLIST *self) : NODE*
-nextLinkedList(LINKEDLIST *self) : NODE*
-isTailLinkedList(LINKEDLIST *self) : int
-getLengthLinkedList(LINKEDLIST *self) : int
-getNodeLinkedList(LINKEDLIST *self, int index) : NODE*
-findNameLinkedList(LINKEDLIST *self, char* p_name) : int
+createLinkedList(self : LINKEDLIST *)
+destroyLinkedList(self : LINKEDLIST *)
+appendLinkedList(self : LINKEDLIST *, p_info : PERSONALINFO* )
+moveToBeforeNodeLinkedList(self : LINKEDLIST *, index : int) : NODE*
+insertLinkedList(self : LINKEDLIST *, index : int, p_info : PERSONALINFO*)
+deleteLinkedList(self : LINKEDLIST *, index : int)
+deleteAllLinkedList(self : LINKEDLIST *)
+viewAtLinkedList(self : LINKEDLIST *, index : int) : PERSONALINFO
+moveFirstLinkedList(self : LINKEDLIST *) : NODE*
+moveLastLinkedList(self : LINKEDLIST *) : NODE*
+nextLinkedList(self : LINKEDLIST *) : NODE*
+isTailLinkedList(self : LINKEDLIST *) : int
+getLengthLinkedList(self : LINKEDLIST *) : int
+getNodeLinkedList(self : LINKEDLIST *, index : int) : NODE*
+findNameLinkedList(self : LINKEDLIST *, p_name : char*) : int
+}
+
+class ADDRESSBOOK {
+list : LINKEDLIST *
+createAddressBook(self : ADDRESSBOOK *)
+destroyAddressBook(self : ADDRESSBOOK *)
+printMainMenu(self : ADDRESSBOOK *)
+print_finish(self : ADDRESSBOOK *)
+print_error(self : ADDRESSBOOK *, error : int)
+isEmptyAddressBook(self : ADDRESSBOOK *) : int
+inputPersonInfo(self : ADDRESSBOOK *)
+removePersonInfo(self : ADDRESSBOOK *)
+modifyPersonInfo(self : ADDRESSBOOK *)
+searchPersonInfo(self : ADDRESSBOOK *)
+printHeader(self : ADDRESSBOOK *, printNum : int)
+printPersonInfo(self : ADDRESSBOOK *, info : PERSONALINFO, printNum : int)
+printPersonInfoPointer(self : ADDRESSBOOK *, info : PERSONALINFO *, printNum : int)
+printAllPersonInfo(self : ADDRESSBOOK *)
+saveAddressBook(self : ADDRESSBOOK *)
+loadAddressBook(self : ADDRESSBOOK *)
+testSetup(self : ADDRESSBOOK *)
 }
 
 PERSONINFO <--o NODE
 NODE "2..*" <--* LINKEDLIST
+LINKEDLIST <--* ADDRESSBOOK
 
 @enduml

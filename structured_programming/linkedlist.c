@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef DEBUG_LINKEDLIST
+#if 0
 
 void printHeaderLinkedList(int printNum) {
 	printf("----------------------------------------------\n");
@@ -67,8 +67,6 @@ int main(void) {
 	
 	return 0;
 }
-
-#endif // DEBUG_LINKEDLIST
 
 void createLinkedList(LINKEDLIST *self) {
 
@@ -269,3 +267,5 @@ int findNameLinkedList(LINKEDLIST *self, char* p_name) {
 
 	return index;
 }
+
+#endif // DEBUG_LINKEDLIST

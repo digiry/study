@@ -11,6 +11,8 @@
 #include "header/addressbook.h"
 #include "header/linkedlist.h"
 
+#if 0
+
 void printMainMenu() {
 	printf("1. 주소정보를 입력한다.\n");
 	printf("2. 주소정보를 삭제한다.\n");
@@ -308,8 +310,6 @@ void testSetup(LINKEDLIST *list) {
 		appendLinkedList(list, &(sample[index]));
 	}
 }
-
-#if 1
 
 int main(void) {
 	int menu = -1;

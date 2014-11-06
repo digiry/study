@@ -9,6 +9,7 @@
 #include "NODE_ADT.h"
 #include "LIST_ADT.h"
 
+#if 0
 //»ı¼º
 void CreateList(LIST *self)
 {
@@ -454,3 +455,5 @@ void PrintList(LIST *self)
 		dest = dest->Rlink;
 	}
 }
+
+#endif

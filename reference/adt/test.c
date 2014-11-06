@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include "LIST_ADT.h"
 
+#if 0
+
 int main()
 {
 	LIST dll;
@@ -70,3 +72,5 @@ int main()
 	// 8 17 15 11
 	return 0;
 }
+
+#endif
