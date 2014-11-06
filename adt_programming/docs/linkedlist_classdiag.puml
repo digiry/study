@@ -1,0 +1,39 @@
+@startuml
+
+class PERSONINFO {
+name : char[7]
+phone : char[12]
+address : char[50]
+}
+
+class NODE {
+info : PERSONALINFO *
+next : NODE *
+}
+
+class LINKEDLIST {
+head : NODE *
+tail : NODE *
+pos : NODE *
+length : int
+createLinkedList(LINKEDLIST *self)
+destroyLinkedList(LINKEDLIST *self)
+appendLinkedList(LINKEDLIST *self, PERSONALINFO* p_info)
+moveToBeforeNodeLinkedList(LINKEDLIST *self, int index) : NODE*
+insertLinkedList(LINKEDLIST *self, int index, PERSONALINFO* p_info)
+deleteLinkedList(LINKEDLIST *self, int index)
+deleteAllLinkedList(LINKEDLIST *self)
+viewAtLinkedList(LINKEDLIST *self, int index) : PERSONALINFO
+moveFirstLinkedList(LINKEDLIST *self) : NODE*
+moveLastLinkedList(LINKEDLIST *self) : NODE*
+nextLinkedList(LINKEDLIST *self) : NODE*
+isTailLinkedList(LINKEDLIST *self) : int
+getLengthLinkedList(LINKEDLIST *self) : int
+getNodeLinkedList(LINKEDLIST *self, int index) : NODE*
+findNameLinkedList(LINKEDLIST *self, char* p_name) : int
+}
+
+PERSONINFO <--o NODE
+NODE "2..*" <--* LINKEDLIST
+
+@enduml
