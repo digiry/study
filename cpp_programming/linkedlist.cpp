@@ -25,10 +25,7 @@ void linkedlist::append(personInfo &info) {
 	node *last = this->moveLast();
 	node *newNode = new node;
 
-	newNode->info = new personInfo;
-	newNode->info->name = info.name;
-	newNode->info->phone = info.phone;
-	newNode->info->address = info.address;
+	newNode->info = new personInfo(info);
 
 	newNode->next = last->next;
 	last->next = newNode;
@@ -60,10 +57,7 @@ void linkedlist::insert(int index, personInfo &info) {
 
 	target = this->moveToBeforeNode(index);
 
-	newNode->info = new personInfo;
-	newNode->info->name = info.name;
-	newNode->info->phone = info.phone;
-	newNode->info->address = info.address;
+	newNode->info = new personInfo(info);
 
 	newNode->next = target->next;
 	target->next = newNode;
@@ -107,9 +101,7 @@ personInfo linkedlist::viewAt(int index) {
 
 	target = moveToBeforeNode(index)->next;
 
-	info.name = target->info->name;
-	info.phone = target->info->phone;
-	info.address = target->info->address;
+	info = *(target->info);
 
 	this->pos = target;
 	target = NULL;
@@ -151,7 +143,7 @@ bool linkedlist::isTail() {
 	return isTail;
 }
 
-bool linkedlist::get_length() {
+int linkedlist::get_length() {
 	return this->length;
 }
 
@@ -169,7 +161,7 @@ int linkedlist::findName(string name) {
 
 	this->moveFirst();
 	while ( this->isTail() != true ) {
-		if ( this->pos->info->name == name ) {
+		if ( *(this->pos->info) == name ) {
 			isFound = true;
 			break;
 		}
