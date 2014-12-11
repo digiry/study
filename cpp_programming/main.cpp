@@ -5,62 +5,59 @@
  *      Author: suandkyu
  */
 
-#include "linkedlist.h"
+
+#include "addressbook.h"
 #include <iostream>
-#include <iomanip>
 
 using namespace std;
 
-void printHeaderLinkedList(int printNum) {
-	cout << "----------------------------------------------" << endl;
-	if ( printNum != -1 ) {
-		cout << "번호  이름     전화번호      주소" << endl;
-	} else {
-		cout << "이름     전화번호      주소" << endl;
-	}
-	cout << "----------------------------------------------" << endl;
-}
-void printPersonInfoLinkedList(personInfo *info, int printNum) {
-	if ( printNum != -1 ) {
-		cout << setw(4) << printNum
-			 << setw(7) << info->name
-			 << setw(12) << info->phone
-			 << setw(50) << info->address << endl;
-	} else {
-		cout << setw(7) << info->name
-			 << setw(12) << info->phone
-			 << setw(50) << info->address << endl;
-	}
-}
-
-void printLinedList(linkedlist *list) {
-	int number = 1;
-	node *target;
-
-	printHeaderLinkedList(1);
-
-	target = list->moveFirst();
-	while ( list->isTail() != false ) {
-		printPersonInfoLinkedList(target->info, number);
-		target = list->moveNext();
-		number++;
-	}
-}
-
 int main() {
-	linkedlist *list;
+	int menu = -1;
+	addressbook *book = new addressbook;
 
-	personInfo info1 = {"aaa", "0001110000", "xxx"};
-	personInfo info2 = {"aaa", "0001110000", "xxx"};
-	personInfo info3 = {"aaa", "0001110000", "xxx"};
+	//book->testSetup();
 
-	list = new linkedlist;
+	while (menu != 0) {
+		book->printMainMenu();
 
-	list->append(info1);
-	list->append(info2);
-	list->append(info3);
+		cout << "menu: ";
+		cin >> menu;
+		cin.sync();
 
-	printLinedList(list);
-
-	delete list;
+		switch (menu) {
+		case MENU_INPUT:
+			book->input();
+			break;
+		case MENU_REMOVE:
+			book->remove();
+			break;
+		case MENU_MODIFY:
+			book->modify();
+			break;
+		case MENU_SEARCH:
+			book->search();
+			break;
+		case MENU_ALL_PRINT:
+			book->printAll();
+			break;
+		case MENU_SAVE:
+			book->save();
+			break;
+		case MENU_LOAD:
+			book->load();
+			break;
+		case MENU_FINISH:
+			book->print_finish();
+			break;
+		default:
+			book->print_error(ERROR_NO_MENU);
+			break;
+		}
+		if (menu != MENU_FINISH) {
+			cin.sync();
+			cout << endl << "menu 화면으로 돌아갑니다. (아무키나 누르세요)" << endl;
+			cin.get();
+		}
+	}
+	return 0;
 }
