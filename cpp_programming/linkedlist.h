@@ -36,7 +36,7 @@ public:
 	node* moveLast();
 	node* moveNext();
 	bool isTail();
-	bool get_length();
+	int get_length();
 	node* getNode(int index);
 	int findName(string name);
 };
