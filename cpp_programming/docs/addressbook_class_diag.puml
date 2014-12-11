@@ -1,0 +1,73 @@
+@startuml
+
+class personInfo {
+-_name : string
+-_phone : string
+-_address : string
++personInfo()
++personInfo(info : personInfo& )
++~personInfo()
++name(): string
++name(string name)
++phone(): string
++phone(string phone)
++address(): string
++address(string address)
++operator=(rinfo: personInfo&): personInfo&
++operator==(rinfo: personInfo&): bool
++operator==(name: string): bool
++operator<<(os: ostream, rinfo: personInfo&): ostream&
+}
+
+class node {
++info : personInfo *
++next : node *
+}
+
+class linkedlist {
+-head : node *
+-tail : node *
+-pos : node *
+-length : int
++linkedlist()
++~linkedlist()
++append(p_info : personInfo&)
++moveToBeforeNode(index : int) : node*
++insert(index : int, p_info : personInfo&)
++deleteNode(index : int)
++deleteAll()
++viewAt(index : int) : personInfo
++moveFirst() : node*
++moveLast() : node*
++moveNext() : node*
++isTail() : bool
++get_length() : int
++getNode(index : int) : node*
++findName(name : string) : int
+}
+
+class addressbook {
++list : linkedlist *
++addressbook()
++~addressbook()
++printMainMenu()
++print_finish()
++print_error(error : int)
++isEmpty() : int
++input()
++remove()
++modify()
++search()
++printHeader(printNum : int)
++printpersonInfo(info : personInfo&, printNum : int)
++printAllpersonInfo()
++save()
++load()
++testSetup()
+}
+
+personInfo <--o node
+node "2..*" <--* linkedlist
+linkedlist <--* addressbook
+
+@enduml
