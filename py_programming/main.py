@@ -29,6 +29,10 @@ def main():
             book.save()
         elif menu == book.MENU_LOAD:
             book.load()
+        elif menu == book.MENU_DB_LOAD:
+            book.load_db()
+        elif menu == book.MENU_DB_SAVE:
+            book.save_db()
         elif menu == book.MENU_FINISH:
             book.print_finish()
         else:

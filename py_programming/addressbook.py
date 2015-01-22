@@ -2,6 +2,7 @@
 
 import personInfo
 import linkedlist
+import MySQLdb as mdb
 
 class addressbook(object):
     def __init__(self):
@@ -12,6 +13,8 @@ class addressbook(object):
         self.MENU_ALL_PRINT = 5
         self.MENU_SAVE = 6
         self.MENU_LOAD = 7
+        self.MENU_DB_LOAD = 8
+        self.MENU_DB_SAVE = 9
         self.MENU_FINISH = 0
         self.ERROR_NO_MENU = 1
         self.ERROR_FULL = 2
@@ -34,6 +37,8 @@ class addressbook(object):
 5. 전체 주소록을 출력한다.
 6. 주소록 파일에 저장한다.
 7. 주소록 파일을 불러온다.
+8. 주소록 db 에서 불러온다.
+9. 주소록 db 에 저장한다.
 0. 종료한다."""
 
     def print_finish(self):
@@ -202,7 +207,11 @@ class addressbook(object):
     def load(self):
         self.list.deleteAll()
 
-        f = open('addressbook.dat','r')
+        try:
+            f = open('addressbook.dat','r')
+        except IOError:
+            self.print_error(self.ERROR_LOAD_FAIL)
+            return None
         f.seek(0,2)
         eof = f.tell()
         f.seek(0)
@@ -215,6 +224,45 @@ class addressbook(object):
             if eof == f.tell(): break
 
         print "addressbook.dat 파일을 불러왔습니다."
+
+    def save_db(self):
+        if (self.isEmpty() == True):
+            self.print_error(self.ERROR_EMPTY)
+            return None
+
+        target = self.list.moveFirst()
+
+        con = mdb.connect('localhost', 'root', 'tn3924', 'studydb')
+
+        with con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM addressbook")
+            while (self.list.isTail() != True):
+                cur.execute("INSERT INTO addressbook (name, phone, address) "
+                            "VALUES (\'%s\', \'%s\', \'%s\')" %
+                    (target.data.name, target.data.phone, target.data.address))
+                target = self.list.moveNext()
+
+        print "addressbook db 에 저장하였습니다."
+
+    def load_db(self):
+        self.list.deleteAll()
+
+        con = mdb.connect('localhost', 'root', 'tn3924', 'studydb')
+
+        with con:
+            cur = con.cursor(mdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM addressbook")
+            rows = cur.fetchall()
+
+            for row in rows:
+                info = personInfo.personInfo()
+                info.name = row['name']
+                info.phone = row['phone']
+                info.address = row['address']
+                self.list.append(info)
+
+        print "addressbook db 을 불러왔습니다."
 
     def testSetup(self):
         samples = []
