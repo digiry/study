@@ -11,5 +11,3 @@
 6. python 으로 주소록 Unittest 추가하기
 7. wxpython 으로 GUI 프로그래밍하기
 8. student score program for inheritance class
-
-test
