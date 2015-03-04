@@ -51,6 +51,7 @@ class addressbook {
 + isEmpty() : bool
 + input()
 + remove()
++ removeAll()
 + modify()
 + search()
 + save()
