@@ -24,12 +24,14 @@ class addressbook(object):
     def input(self, info):
         self.list.append(info)
 
-    def remove(self, removeIndex):
+    def remove(self, name):
+        removeIndex = self.list.find(name)
         self.list.deleteNode(removeIndex)
 
-    def modify(self, modifyIndex, info):
+    def modify(self, target_name, update_info):
+        modifyIndex = self.list.find(target_name)
         target = self.list.getNode(modifyIndex)
-        target.data = info
+        target.data = update_info
 
     def search(self, name):
         foundIndex = self.list.find(name)
@@ -94,3 +96,21 @@ class addressbook(object):
                 info.phone = row['phone']
                 info.address = row['address']
                 self.list.append(info)
+
+    def moveFirst(self):
+        return self.list.moveFirst()
+
+    def moveLast(self):
+        return self.list.moveLast()
+
+    def moveNext(self):
+        return self.list.moveNext()
+
+    def isLast(self):
+        return self.list.isTail()
+
+    def getNode(self, index):
+        return self.list.getNode(index)
+
+    def viewAt(self, index):
+        return self.list.viewAt(index)
