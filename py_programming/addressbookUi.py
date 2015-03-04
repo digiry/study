@@ -69,7 +69,7 @@ class addressbookUi(object):
         yesno = raw_input("추가하시겠습니까 ? (y/n) :")
 
         if (yesno == 'y'):
-            self.book.append(info)
+            self.book.input(info)
             print "추가되었습니다."
 
     def remove(self):
@@ -79,19 +79,19 @@ class addressbookUi(object):
 
         name = raw_input("삭제할 이름: ")
 
-        removeIndex = self.book.find(name)
+        removeInfo = self.book.search(name)
 
-        if (removeIndex == -1):
+        if (removeInfo == None):
             self.print_error(self.ERROR_NOT_SEARCH)
             return None
 
         self.printHeader(-1)
-        self.printPersonInfo(self.book.viewAt(removeIndex), -1)
+        self.printPersonInfo(removeInfo, -1)
 
         yesno = raw_input("삭제하겠습니까? (y/n) :")
 
         if (yesno == 'y'):
-            self.book.deleteNode(removeIndex)
+            self.book.remove(name)
             print "삭제되었습니다."
 
     def modify(self):
@@ -99,16 +99,16 @@ class addressbookUi(object):
             self.print_error(self.ERROR_EMPTY)
             return None
 
-        name = raw_input("수정할 이름: ")
+        input_name = raw_input("수정할 이름: ")
 
-        modifyIndex = self.book.find(name)
+        modifyInfo = self.book.search(input_name)
 
-        if (modifyIndex == -1):
+        if (modifyInfo == None):
             self.print_error(self.ERROR_NOT_SEARCH)
             return None
 
         self.printHeader(-1)
-        self.printPersonInfo(self.book.viewAt(modifyIndex), -1)
+        self.printPersonInfo(modifyInfo, -1)
 
         yesno = raw_input("수정하겠습니까? (y/n) :")
 
@@ -121,12 +121,10 @@ class addressbookUi(object):
 
             print "수정된 정보"
 
-            target = self.book.getNode(modifyIndex)
-
-            target.data = info
+            self.book.modify(input_name, info)
 
             self.printHeader(-1)
-            self.printPersonInfo(target.data, -1)
+            self.printPersonInfo(info, -1)
             print "수정되었습니다."
 
     def search(self):
@@ -136,7 +134,7 @@ class addressbookUi(object):
 
         name = raw_input("검색할 이름: ")
 
-        info = self.book.find(name)
+        info = self.book.search(name)
 
         if (info == None):
             self.print_error(self.ERROR_NOT_SEARCH)
@@ -167,7 +165,7 @@ class addressbookUi(object):
 
         self.printHeader(1)
         target = self.book.moveFirst()
-        while (self.book.isTail() != True):
+        while (self.book.isLast() != True):
             self.printPersonInfo(target.data, number)
             target = self.book.moveNext()
             number = number + 1
@@ -177,18 +175,12 @@ class addressbookUi(object):
             self.print_error(self.ERROR_EMPTY)
             return None
 
-        target = self.book.moveFirst()
-
-        with open('addressbook.dat','w') as f:
-            while (self.book.isTail() != True):
-                f.write(target.data.name + '\n')
-                f.write(target.data.phone + '\n')
-                f.write(target.data.address + '\n')
-                target = self.book.moveNext()
+        self.book.save()
 
         print "addressbook.dat 파일에 저장하였습니다."
 
     def load(self):
+        self.book.removeAll()
         self.book.load()
         print "addressbook.dat 파일을 불러왔습니다."
 
@@ -201,6 +193,7 @@ class addressbookUi(object):
         print "addressbook db 에 저장하였습니다."
 
     def load_db(self):
+        self.book.removeAll()
         self.book.load_db()
         print "addressbook db 을 불러왔습니다."
 
@@ -268,7 +261,7 @@ class addressbookUi(object):
         samples.append(info)
 
         for index in range(10):
-            self.book.append(samples[index])
+            self.book.input(samples[index])
 
     def launch(self):
         menu = -1

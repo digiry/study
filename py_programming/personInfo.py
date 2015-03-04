@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class personInfo(object):
-    def __init__(self, info = None):
+    def __init__(self, info=None):
         self._name = info._name if info else ""
         self._phone = info._phone if info else ""
         self._address = info._address if info else ""

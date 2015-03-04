@@ -57,6 +57,13 @@ class addressbook {
 + load()
 + save_db()
 + load_db()
++ moveFirst() : node&
++ moveLast() : node&
++ moveNext() : node&
++ isTail() : bool
++ getNode(index : int) : node&
++ viewAt(index : int) : personInfo&
++ get_length() : int
 }
 
 class addressbookUi {
