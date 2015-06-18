@@ -2,14 +2,14 @@
 
 import wx
 
-class AddDialog(wx.Dialog):
-    title='Add dialog'
+class ModifyDialog(wx.Dialog):
+    title='Modify dialog'
     size=(400,150)
     name = None
     phone = None
     address = None
     def __init__(self, parent):
-        super(AddDialog, self).__init__(parent, title=self.title, size=self.size)
+        super(ModifyDialog, self).__init__(parent, title=self.title, size=self.size)
         self.init_view()
 
     def init_view(self):
@@ -41,8 +41,8 @@ class AddDialog(wx.Dialog):
         vbox.Add((-1, 10))
 
         hbox4 = wx.BoxSizer(wx.HORIZONTAL)
-        addButton = wx.Button(panel, label='Add')
-        hbox4.Add(addButton, proportion=1)
+        modifyButton = wx.Button(panel, label='Modify')
+        hbox4.Add(modifyButton, proportion=1)
 
         cancelButton = wx.Button(panel, label='Cancel')
         hbox4.Add(cancelButton, proportion=1)
@@ -51,10 +51,10 @@ class AddDialog(wx.Dialog):
 
         panel.SetSizer(vbox)
 
-        addButton.Bind(wx.EVT_BUTTON, self.OnAddClicked)
+        modifyButton.Bind(wx.EVT_BUTTON, self.OnModifyClicked)
         cancelButton.Bind(wx.EVT_BUTTON, self.OnCancelClicked)
 
-    def OnAddClicked(self, e):
+    def OnModifyClicked(self, e):
         pass
 
     def OnCancelClicked(self, e):

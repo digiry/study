@@ -3,10 +3,15 @@
 import wx
 
 import addDialog
+import saerchDialog
+import modifyDialog
 
 class MainFrame(wx.Frame):
     title = 'AddressBook'
     size = (500, 400)
+    add_diag = None
+    search_diag = None
+    modify_diag = None
 
     def __init__(self, parent):
         super(MainFrame, self).__init__(parent, title=self.title, size=self.size)
@@ -73,17 +78,22 @@ class MainFrame(wx.Frame):
         self.Show(showflag)
 
     def OnAddButton(self, e):
-        adddiag = addDialog.addDialog(self)
-        adddiag.show(True)
+        self.add_diag = addDialog.AddDialog(self)
+        self.add_diag.ShowModal()
+        self.add_diag.Destroy()
 
     def OnDeleteButton(self, e):
         pass
 
     def OnSearchButton(self, e):
-        pass
+        self.search_diag = saerchDialog.SearchDialog(self)
+        self.search_diag.ShowModal()
+        self.search_diag.Destroy()
 
     def OnModifyButton(self, e):
-        pass
+        self.modify_diag = modifyDialog.ModifyDialog(self)
+        self.modify_diag.ShowModal()
+        self.modify_diag.Destroy()
 
 def main():
     mainApp = wx.App()
