@@ -1,0 +1,98 @@
+@startuml
+
+class personInfo {
+- name : string
+- phone : string
+- address : string
++ personInfo()
++ personInfo(info : personInfo&)
++ ~personInfo()
++ name() : string
++ name(name : string)
++ phone() : string
++ phone(phone : string)
++ address() : string
++ address(address : string)
++ operator==(info : personInfo&) : bool
++ operator==(name : string) : bool
+}
+
+class node {
++ info : personInfo
++ next : node
+}
+
+class linkedlist {
+- head : node
+- tail : node
+- pos : node
+- length : int
++ linkedlist()
++ ~linkedlist()
++ append(data : personInfo&)
++ moveToBeforeNode(index : int) : node
++ insert(index : int, data : personInfo&)
++ deleteNode(index : int)
++ deleteAll()
++ viewAt(index : int) : personInfo&
++ moveFirst() : node&
++ moveLast() : node&
++ moveNext() : node&
++ isTail() : bool
++ get_length() : int
++ getNode(index : int) : node&
++ find(name : string) : int
+}
+
+class addressbook {
+- list : linkedlist
++ addressbook()
++ ~addressbook()
++ isEmpty() : bool
++ input()
++ remove()
++ removeAll()
++ modify()
++ search()
++ save()
++ load()
++ save_db()
++ load_db()
++ moveFirst() : node&
++ moveLast() : node&
++ moveNext() : node&
++ isTail() : bool
++ getNode(index : int) : node&
++ viewAt(index : int) : personInfo&
++ get_length() : int
+}
+
+class addressbookUi {
+- book : addressbook
++ addressbookUi()
++ ~addressbookUi()
++ printMainMenu()
++ print_finish()
++ print_error(error : int)
++ isEmpty() : bool
++ input()
++ remove()
++ modify()
++ search()
++ printHeader(printNum : int)
++ printPersonInfo(info : personInfo, printNum : int)
++ printAll()
++ save()
++ load()
++ save_db()
++ load_db()
+- testSetup()
++ launch()
+}
+
+personInfo <--o node
+node "2..*" <--* linkedlist
+linkedlist <--* addressbook
+addressbook <-- addressbookUi
+
+@enduml
