@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import wx
-import mainFrame
+
+from wxpy_programming.view import mainFrame
+
 
 def main():
     mainApp = wx.App()
