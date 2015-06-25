@@ -1,26 +1,29 @@
 # -*- coding: utf-8 -*-
 
 import wx
-
+import sys
 import addDialog
 import saerchDialog
+import deleteDialog
 import modifyDialog
+import addressbook
 
 class MainFrame(wx.Frame):
-    title = 'AddressBook'
-    size = (500, 400)
-    add_diag = None
-    search_diag = None
-    modify_diag = None
 
     def __init__(self, parent):
-        super(MainFrame, self).__init__(parent, title=self.title, size=self.size)
+        super(MainFrame, self).__init__(parent, title='AddressBook', size=(800, 400))
+        self.add_diag = None
+        self.search_diag = None
+        self.delete_diag = None
+        self.modify_diag = None
+        self.listctrl = None
+        self.book = addressbook.addressbook()
         self.init_ui()
         self.Centre()
 
     def init_ui(self):
-        self.init_menu()
         self.init_view()
+        self.init_menu()
 
     def init_menu(self):
         menubar = wx.MenuBar()
@@ -39,6 +42,8 @@ class MainFrame(wx.Frame):
         menubar.Append(helpMenu, '&Help')
         self.SetMenuBar(menubar)
 
+        self.Bind(wx.EVT_MENU, self.OnLoadMenu, loadMenu)
+
     def init_view(self):
         panel = wx.Panel(self, -1)
 
@@ -46,8 +51,11 @@ class MainFrame(wx.Frame):
         hbox = wx.BoxSizer(wx.HORIZONTAL)
 
         # List Box
-        self.listbox = wx.ListBox(panel, -1)
-        hbox.Add(self.listbox, 1, wx.EXPAND | wx.ALL, 20)
+        self.listctrl = wx.ListCtrl(panel, -1, style=wx.LC_REPORT)
+        self.listctrl.InsertColumn(0, 'name', width=100)
+        self.listctrl.InsertColumn(1, 'phone', width=150)
+        self.listctrl.InsertColumn(2, 'address', width=200)
+        hbox.Add(self.listctrl, 1, wx.EXPAND | wx.ALL, 20)
 
         # Button box
         buttonPanel = wx.Panel(panel, -1)
@@ -77,23 +85,35 @@ class MainFrame(wx.Frame):
     def show(self, showflag):
         self.Show(showflag)
 
-    def OnAddButton(self, e):
+    def OnAddButton(self, event):
         self.add_diag = addDialog.AddDialog(self)
         self.add_diag.ShowModal()
-        self.add_diag.Destroy()
 
-    def OnDeleteButton(self, e):
-        pass
+    def OnDeleteButton(self, event):
+        self.delete_diag = deleteDialog.DeleteDialog(self)
+        self.delete_diag.ShowModal()
 
-    def OnSearchButton(self, e):
+    def OnSearchButton(self, event):
         self.search_diag = saerchDialog.SearchDialog(self)
         self.search_diag.ShowModal()
-        self.search_diag.Destroy()
 
-    def OnModifyButton(self, e):
+    def OnModifyButton(self, event):
         self.modify_diag = modifyDialog.ModifyDialog(self)
         self.modify_diag.ShowModal()
-        self.modify_diag.Destroy()
+
+    def OnLoadMenu(self, event):
+        self.listctrl.DeleteAllItems()
+        self.book.removeAll()
+        self.book.load()
+        target = self.book.moveFirst()
+        while (self.book.isLast() != True):
+            index = self.listctrl.InsertStringItem(sys.maxint, target.data.name)
+            self.listctrl.SetStringItem(index, 1, target.data.phone)
+            self.listctrl.SetStringItem(index, 2, target.data.address)
+            target = self.book.moveNext()
+
+        count = self.listctrl.GetItemCount()
+        wx.MessageBox('Load completed %d' % count, 'Info', wx.OK | wx.ICON_INFORMATION)
 
 def main():
     mainApp = wx.App()

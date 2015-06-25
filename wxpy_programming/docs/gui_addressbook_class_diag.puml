@@ -1,0 +1,75 @@
+@startuml
+
+class MainFrame {
+- listctrl
+- addDialog
+- deleteDialog
+- searchDialog
+- modigyDialog
++ __init__()
++ init_ui()
++ init_menu()
++ init_view()
++ show(showflag)
++ OnAddButton(event)
++ OnDeleteButton(event)
++ OnSearchButton(event)
++ OnModifyButton(event)
+}
+
+class AddDialog {
+- name
+- phone
+- address
+- nameTextCtrl
+- phoneTextCtrl
+- addressTextCtrl
++ __init__()
++ init_view()
++ OnAddButton(event)
++ OnCancelButton(event)
+}
+
+class DeleteDialog {
+- name
+- nameTextCtrl
+- phoneTextCtrl
+- addressTextCtrl
++ __init__()
++ init_view()
++ OnSearchButton(event)
++ OnDeleteButton(event)
++ OnCancelButton(event)
+}
+
+class SearchDialog {
+- name
+- nameTextCtrl
+- phoneTextCtrl
+- addressTextCtrl
++ __init__()
++ init_view()
++ OnSearchButton(event)
++ OnOkButton(event)
+}
+
+class ModifyDialog {
+- name
+- phone
+- address
+- nameTextCtrl
+- phoneTextCtrl
+- addressTextCtrl
++ __init__()
++ init_view()
++ OnSearchButton(event)
++ OnModifyButton(event)
++ OnCancelButton(event)
+}
+
+MainFrame *-- AddDialog
+MainFrame *-- SearchDialog
+MainFrame *-- DeleteDialog
+MainFrame *-- ModifyDialog
+
+@enduml
