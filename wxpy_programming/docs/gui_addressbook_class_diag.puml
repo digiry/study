@@ -18,7 +18,13 @@ class MainFrame {
 }
 
 class AddDialog {
+<<<<<<< HEAD
 - book
+=======
+- name
+- phone
+- address
+>>>>>>> origin/master
 - nameTextCtrl
 - phoneTextCtrl
 - addressTextCtrl
@@ -29,8 +35,12 @@ class AddDialog {
 }
 
 class DeleteDialog {
+<<<<<<< HEAD
 - book
 - deleteName
+=======
+- name
+>>>>>>> origin/master
 - nameTextCtrl
 - phoneTextCtrl
 - addressTextCtrl
@@ -42,18 +52,32 @@ class DeleteDialog {
 }
 
 class SearchDialog {
+<<<<<<< HEAD
 - book
+=======
+- name
+>>>>>>> origin/master
 - nameTextCtrl
 - phoneTextCtrl
 - addressTextCtrl
 + __init__()
 + init_view()
 + OnSearchButton(event)
+<<<<<<< HEAD
 + OnExitButton(event)
 }
 
 class ModifyDialog {
 - book
+=======
++ OnOkButton(event)
+}
+
+class ModifyDialog {
+- name
+- phone
+- address
+>>>>>>> origin/master
 - nameTextCtrl
 - phoneTextCtrl
 - addressTextCtrl
