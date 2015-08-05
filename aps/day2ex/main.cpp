@@ -22,10 +22,11 @@ maskMap map[4] = {
 #define CALC_INDEX(n) (7*n/4)
 #define MOD_4(x) (x&0x03)
 
-int ctoi(char data);
+int htoi(char data);
 
 void main() {
-	char input[] = "01D0903FD1097D03E1";
+	//char input[] = "01D06079861D79F99F";
+	char input[] = "0F97A3";
 	int input_len = sizeof(input) - 1;
 	bool isLoop = true;
 	int index = 0;
@@ -37,15 +38,31 @@ void main() {
 		index = CALC_INDEX(point);
 		for (int i = 0; i < 3; i++) {
 			if ((index + i) < input_len) {
-				result |= ctoi(input[index + i]) & map[MOD_4(point)].masks[i];
-				result = result << 4;
+ 				result = result << 4;
+				result |= htoi(input[index + i]) & map[MOD_4(point)].masks[i];
 			}
 		}
 		result = result >> map[MOD_4(point)].shiftN;
+		cout << result;
+
+		point++;
+
+		if ((index <= input_len-1) && (input_len-1 <= index + 2)) {
+			isLoop = false;
+		}
+		else {
+			if (point != 0) {
+				cout << ", ";
+			}
+		}
 	}
+
+	// remain bits
+
+	cout << endl;
 }
 
-int ctoi(char data) {
+int htoi(char data) {
 	int result = 0;
 
 	if (data <= '9') {
