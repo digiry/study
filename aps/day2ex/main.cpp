@@ -12,10 +12,10 @@ typedef struct __maskmap {
 } maskMap;
 
 maskMap map[4] = {
-	{ { 0x0F, 0x0E, 0x00 }, 5 },
-	{ { 0x01, 0x0F, 0x0C }, 2 },
-	{ { 0x03, 0x0F, 0x08 }, 3 },
-	{ { 0x07, 0x0F, 0x00 }, 4 }
+		{ { 0x0F, 0x0E, 0x00 }, 5 },
+		{ { 0x01, 0x0F, 0x0C }, 2 },
+		{ { 0x03, 0x0F, 0x08 }, 3 },
+		{ { 0x07, 0x0F, 0x00 }, 4 }
 };
 
 // 7n/4
@@ -25,8 +25,8 @@ maskMap map[4] = {
 int htoi(char data);
 
 void main() {
-	//char input[] = "01D06079861D79F99F";
-	char input[] = "0F97A3";
+	char input[] = "01D06079861D79F99F";
+	//char input[] = "0F97A3";
 	int input_len = sizeof(input) - 1;
 	bool isLoop = true;
 	int index = 0;
@@ -38,7 +38,7 @@ void main() {
 		index = CALC_INDEX(point);
 		for (int i = 0; i < 3; i++) {
 			if ((index + i) < input_len) {
- 				result = result << 4;
+				result = result << 4;
 				result |= htoi(input[index + i]) & map[MOD_4(point)].masks[i];
 			}
 		}
@@ -47,8 +47,30 @@ void main() {
 
 		point++;
 
-		if ((index <= input_len-1) && (input_len-1 <= index + 2)) {
+		if ((index <= input_len - 1) && (input_len - 1 <= index + 2)) {
 			isLoop = false;
+			int loopCnt = 0;
+
+			// remain bits
+			index = CALC_INDEX(point);
+			
+			result = 0;
+			result = result << 4;
+			result |= htoi(input[index]) & map[MOD_4(point)].masks[0];
+
+			if (index == input_len - 1) {
+				loopCnt = 2;
+			}
+			else if (index + 1 == input_len - 1) {
+				loopCnt = 1;
+			}
+
+			for (int j = 1; j <= loopCnt; j++) {
+				result = result << 4;
+				result |= htoi(0) & map[MOD_4(point)].masks[j];
+			}
+			result = result >> (4*loopCnt);
+			cout << ", " << result;
 		}
 		else {
 			if (point != 0) {
@@ -56,8 +78,6 @@ void main() {
 			}
 		}
 	}
-
-	// remain bits
 
 	cout << endl;
 }
