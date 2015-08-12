@@ -1,0 +1,72 @@
+@startuml
+
+class personalInfo {
++ name
++ phone
++ address
+}
+
+class studentInfo {
++ classNum
++ id
++ sum
++ avg
++ person : personalInfo
++ kor : korSubjectInfo
++ eng : engSubjectInfo
++ math : mathSubjectInfo
+}
+
+class baseSubjectInfo {
++ name
++ score
+}
+
+class korSubjectInfo {
+}
+
+class engSubjectInfo {
+}
+
+class mathSubjectInfo {
+}
+
+studentInfo -- korSubjectInfo
+studentInfo -- engSubjectInfo
+studentInfo -- mathSubjectInfo
+
+korSubjectInfo --|> baseSubjectInfo
+engSubjectInfo --|> baseSubjectInfo
+mathSubjectInfo --|> baseSubjectInfo
+
+studentInfo ---|> personalInfo
+
+class studentManager {
++ total
++ addStudent()
++ removeStudent()
++ editStudent()
++ searchStudent()
++ updateKor()
++ updateEng()
++ updateMath()
++ save()
++ load()
+}
+
+studentManager --"0...*" studentInfo
+
+class studentUI {
++ addStudent()
++ removeStudent()
++ editStudent()
++ searchStudent()
+- printStudent()
++ printAllStudent()
++ save()
++ load()
+}
+
+studentUI -- studentManager
+
+@enduml
