@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import wx
-from wxpy_programming.model import personInfo
-from wxpy_programming.view import inputValidator
+from model import personInfo
+from view import inputValidator
 
 class ModifyDialog(wx.Dialog):
 

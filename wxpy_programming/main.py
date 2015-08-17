@@ -2,7 +2,7 @@
 
 import wx
 
-from wxpy_programming.view import mainFrame
+from view import mainFrame
 
 
 def main():

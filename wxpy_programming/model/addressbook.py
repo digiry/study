@@ -2,8 +2,8 @@
 
 import MySQLdb as mdb
 
-from wxpy_programming.model import personInfo
-from wxpy_programming.model import linkedlist
+from model import personInfo
+from model import linkedlist
 
 
 class addressbook(object):
@@ -72,7 +72,7 @@ class addressbook(object):
     def save_db(self):
         target = self.list.moveFirst()
 
-        con = mdb.connect('localhost', 'root', 'tn3924', 'studydb')
+        con = mdb.connect('localhost', 'root', 'digiry3924-', 'studydb')
 
         with con:
             cur = con.cursor()
@@ -84,7 +84,7 @@ class addressbook(object):
                 target = self.list.moveNext()
 
     def load_db(self):
-        con = mdb.connect('localhost', 'root', 'tn3924', 'studydb')
+        con = mdb.connect('localhost', 'root', 'digiry3924-', 'studydb')
 
         with con:
             cur = con.cursor(mdb.cursors.DictCursor)

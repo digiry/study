@@ -3,8 +3,8 @@
 import wx
 import sys
 
-from wxpy_programming.view import deleteDialog, saerchDialog, addDialog, modifyDialog
-from wxpy_programming.model import addressbook
+from view import deleteDialog, saerchDialog, addDialog, modifyDialog
+from model import addressbook
 
 
 class MainFrame(wx.Frame):

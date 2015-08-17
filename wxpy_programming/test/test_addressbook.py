@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
-from wxpy_programming.model.addressbook import addressbook
-from wxpy_programming.model.personInfo import personInfo
+from model.addressbook import addressbook
+from model.personInfo import personInfo
 
 __author__ = 'ninaeros'
 

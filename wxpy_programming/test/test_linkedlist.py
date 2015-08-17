@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
-from wxpy_programming.model.linkedlist import linkedlist
-from wxpy_programming.model.personInfo import personInfo
+from model.linkedlist import linkedlist
+from model.personInfo import personInfo
 
 __author__ = 'ninaeros'
 
