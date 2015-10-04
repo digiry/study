@@ -6,6 +6,7 @@ using namespace std;
 
 char input[6] = {0,};
 int input_length = 0;
+char copy_input[6] = {0,};
 
 int max_number = 0;
 
@@ -25,7 +26,6 @@ int main() {
     int N;
     int C;
     int testCase;
-    int result;
 
     cin >> T;
     for (testCase=0; testCase<T; testCase++) {
@@ -35,12 +35,14 @@ int main() {
         max_number = 0;
 
         for (int count=0; count<C; count++) {
-            find_max(input, 6-input_length);
-            itoc(max_number, input);
+            for (int index=6-input_length; index<(6-1); index++) {
+                copy_number(input, copy_input);
+                find_max(copy_input, index);
+                itoc(max_number, copy_input);
+            }
         }
-        result = ctoi(input);
 
-        cout << "#" << testCase+1 << " " << result << endl;
+        cout << "#" << testCase+1 << " " << max_number << endl;
     }
     return 0;
 }
