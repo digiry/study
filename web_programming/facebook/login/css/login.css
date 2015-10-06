@@ -1,0 +1,14 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#top_wrap {
+	background: url('/facebook/login/images/top_bg.png');
+}
+
+#top {
+	width: 1000px;
+	height: 84px;
+	margin: 0 auto;
+}
