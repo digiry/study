@@ -28,21 +28,22 @@ int main() {
 			cin >> num;
 			input[num] = idx_i;
 		}
-		input[idx_i] = -1;
+		input[N+1] = -1;
 		max_linked = 0;
 		for (idx_i = 1; idx_i <= N; idx_i++) {
-			linked_cnt = 1;
-			base = input[idx_i];
-			for (idx_j = idx_i + 1; idx_j <= N + 1; idx_j++) {
-				target = input[idx_j];
-				if (base < target) {
-					linked_cnt++;
-					base = target;
-					max_linked = MAX(max_linked, linked_cnt);
-				}
-				else {
-					break;
-					max_linked = 0;
+			if (max_linked < (N - idx_i + 1)) {
+				linked_cnt = 1;
+				base = input[idx_i];
+				for (idx_j = idx_i + 1; idx_j <= N + 1; idx_j++) {
+					target = input[idx_j];
+					if (base < target) {
+						linked_cnt++;
+						base = target;
+						max_linked = MAX(max_linked, linked_cnt);
+					}
+					else {
+						break;
+					}
 				}
 			}
 		}
