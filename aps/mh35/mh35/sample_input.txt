@@ -1,0 +1,30 @@
+4
+5 4
+(Follow.my
+.........starting.from)
+{then.curly
+.....[.and.finally
+.......square.brackets.]}
+(Thank.you
+{for.showing.me
+[all
+the.secrets]})
+4 2
+(This.time.I.will.show.you
+.........(how.to.use)
+.........[but.not.about]
+.........{nor.curly.brackets})
+(I.learned
+how.to.use.round.brackets)
+4 2
+(This.time.I.will.show.you
+.........(how.to.use)
+.........[but.not.about]
+.........{nor.curly.brackets})
+[I.have.not.learned
+how.to.use.square.brackets]
+2 2
+(Be.smart.and.let.fear.of
+..(closed.brackets).go)
+(A.pair.of.round.bracket.enclosing
+[A.line.enclosed.in.square.brackets])
