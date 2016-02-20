@@ -14,7 +14,6 @@ node node_solution[10];
 int T;
 int N;
 
-void init_solution();
 void check_node(node target);
 bool is_solution(node target);
 
@@ -61,6 +60,7 @@ void check_node(node target) {
 		}
 	}
 }
+
 bool is_solution(node target) {
 	int idx_i;
 	bool result = true;
