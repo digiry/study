@@ -1,0 +1,1510 @@
+input 1 6
+a : 1
+multiply: 1
+a : 1
+multiply: 1
+a : 1
+multiply: 1
+a : 1
+multiply: 1
+a : 1
+multiply: 1
+a : 1
+multiply: 1
+[result]: 1
+input 3 7
+a : 3
+multiply: 3
+a : 3
+multiply: 9
+a : 3
+multiply: 7
+a : 3
+multiply: 1
+a : 3
+multiply: 3
+a : 3
+multiply: 9
+a : 3
+multiply: 7
+[result]: 7
+input 6 2
+a : 6
+multiply: 6
+a : 6
+multiply: 6
+[result]: 6
+input 7 100
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+a : 7
+multiply: 7
+a : 7
+multiply: 9
+a : 7
+multiply: 3
+a : 7
+multiply: 1
+[result]: 1
+input 9 635
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+a : 9
+multiply: 1
+a : 9
+multiply: 9
+[result]: 9
