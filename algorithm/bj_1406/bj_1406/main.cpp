@@ -3,14 +3,11 @@
 using namespace std;
 
 int T;
-char buffer[100001];
 
-char l_stack[600001];
+char l_stack[600000];
 int l_top = -1;
-char r_stack[600001];
+char r_stack[600000];
 int r_top = -1;
-
-void prepare_buffer();
 
 int main() {
 	char cmd;
@@ -18,7 +15,10 @@ int main() {
 	cin >> l_stack;
 	cin >> T;
 
-	prepare_buffer();
+	l_top = 0;
+	while (l_stack[l_top] != '\0') {
+		l_top++;
+	}
 	for (int tc = 0; tc < T; tc++) {
 		cin >> cmd;
 		switch (cmd) {
@@ -51,14 +51,4 @@ int main() {
 	}
 	cout << endl;
 	return 0;
-}
-
-void prepare_buffer() {
-	int idx = 0;
-	char letter = l_stack[idx];
-
-	while (letter != '\0') {
-		++l_top;
-		letter = l_stack[idx++];
-	}
 }
