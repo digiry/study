@@ -1,4 +1,3 @@
-//#include <iostream>
 #include <cstdio>
 
 using namespace std;
@@ -13,9 +12,9 @@ typedef struct _edge {
 	int c;
 } edge;
 
-edge edge_list[499500] = { 0, };	// 0-base
+edge edge_list[999000] = { 0, };	// 0-base
 int edge_idx[1001] = { 0, };	// 1-base
-
+int n_edge_idx = 0;
 int conn_count = 0;
 
 void quick_sort(int l, int r);
@@ -26,15 +25,19 @@ void make_index_array();
 void dfs(int x);
 
 int main() {
-	//cin >> N >> M;
 	scanf("%d %d", &N, &M);
 
 	for (int i = 0; i < M; i++) {
-		//cin >> edge_list[i].p >> edge_list[i].c;
-		scanf("%d %d", &(edge_list[i].p), &(edge_list[i].c));
+		int p, c;
+		scanf("%d %d", &p, &c);
+		edge_list[i].p = p;
+		edge_list[i].c = c;
+		edge_list[i + M].p = c;
+		edge_list[i + M].c = p;
 	}
 
-	quick_sort(0, M - 1);
+	n_edge_idx = M * 2;
+	quick_sort(0, n_edge_idx - 1);
 	make_index_array();
 
 	conn_count = 0;
@@ -45,7 +48,6 @@ int main() {
 		}
 	}
 
-	//cout << conn_count << endl;
 	printf("%d\n", conn_count);
 
 	return 0;
@@ -95,7 +97,7 @@ void swap(int a, int b) {
 }
 
 void make_index_array() {
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < n_edge_idx; i++) {
 		edge_idx[edge_list[i].p]++;
 	}
 	for (int i = 2; i <= N; i++) {
@@ -104,7 +106,6 @@ void make_index_array() {
 }
 
 void dfs(int x) {
-	//cout << x << ' ';
 	check[x] = true;
 	for (int i = edge_idx[x - 1]; i < edge_idx[x]; i++) {
 		if (check[edge_list[i].c] == false) {
@@ -112,63 +113,3 @@ void dfs(int x) {
 		}
 	}
 }
-
-
-/*
-#include <cstdio>
-#include <cstring>
-#include <queue>
-#include <algorithm>
-using namespace std;
-struct Edge {
-	int from, to;
-};
-Edge edge[499501];
-int cnt[1001];
-bool check[1001];
-int conn_count = 0;
-bool cmp(const Edge &u, const Edge &v) {
-	if (u.from == v.from) {
-		return u.to < v.to;
-	}
-	else {
-		return u.from < v.from;
-	}
-}
-void dfs(int node) {
-	check[node] = true;
-	//printf("%d ",node);
-	for (int i = cnt[node - 1]; i<cnt[node]; i++) {
-		int next = edge[i].to;
-		if (check[next] == false) {
-			dfs(next);
-		}
-	}
-}
-int main() {
-	int n, m;
-	scanf("%d %d", &n, &m);
-	for (int i = 0; i<m; i++) {
-		scanf("%d %d", &edge[i].from, &edge[i].to);
-	}
-	sort(edge, edge + m, cmp);
-	for (int i = 0; i<m; i++) {
-		cnt[edge[i].from] += 1;
-	}
-	for (int i = 1; i <= n; i++) {
-		cnt[i] += cnt[i - 1];
-	}
-	conn_count = 0;
-	for (int i = 1; i <= n; i++) {
-		if (check[i] == false) {
-			dfs(i);
-			conn_count++;
-		}
-	}
-
-	printf("%d\n", conn_count);
-
-	return 0;
-}
-
-*/
