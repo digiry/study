@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -26,14 +26,14 @@ void dfs(int x, int color);
 
 int main() {
 	int tc;
-	cin >> T;
+	scanf("%d\n", &T);
 
 	for (tc = 0; tc < T; tc++) {
-		cin >> N >> M;
+		scanf("%d %d", &N, &M);
 		int p;
 		int c;
 		for (int i = 0; i < M; i++) {
-			cin >> p >> c;
+			scanf("%d %d", &p, &c);
 			edge_list[i].p = p;
 			edge_list[i].c = c;
 			edge_list[i + M].p = c;
@@ -42,7 +42,12 @@ int main() {
 		n_edge_list = M * 2;
 		quick_sort(0, n_edge_list - 1);
 		make_index_array();
-		dfs(1, 1);
+
+		for (int i = 1; i <= N; i++) {
+			if (color_list[i] == 0) {
+				dfs(i, 1);
+			}
+		}
 
 		bool is_bi_graph = true;
 		for (int i = 1; i < N; i++) {
@@ -52,7 +57,7 @@ int main() {
 				}
 			}
 		}
-		cout << ((is_bi_graph) ? "YES" : "NO") << endl;
+		printf("%s\n", ((is_bi_graph) ? "YES" : "NO"));
 
 		for (int i = 1; i <= N; i++) {
 			color_list[i] = 0;
