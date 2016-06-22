@@ -1,4 +1,5 @@
-#include <iostream>
+//#include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -29,11 +30,13 @@ void dfs(int x);
 void bfs(int x);
 
 int main() {
-	cin >> N >> M >> V;
+	//cin >> N >> M >> V;
+	scanf("%d %d %d", &N, &M, &V);
 	int p;
 	int c;
 	for (int i = 0; i < M; i++) {
-		cin >> p >> c;
+		scanf("%d %d", &p, &c);
+		//cin >> p >> c;
 		edge_list[i].p = p;
 		edge_list[i].c = c;
 		edge_list[i + M].p = c;
@@ -46,9 +49,11 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		check[i] = false;
 	}
-	cout << endl;
+	//cout << endl;
+	printf("\n");
 	bfs(V);
-	cout << endl;
+	//cout << endl;
+	printf("\n");
 	return 0;
 }
 
@@ -104,7 +109,8 @@ void make_index_array() {
 }
 
 void dfs(int x) {
-	cout << x << ' ';
+	printf("%d ", x);
+	//cout << x << ' ';
 	check[x] = true;
 	for (int i = edge_idx[x - 1]; i < edge_idx[x]; i++) {
 		if (check[edge_list[i].c] == false) {
@@ -115,15 +121,17 @@ void dfs(int x) {
 
 void bfs(int x) {
 	int v;
-	cout << x << ' ';
+	printf("%d ", x);
+	//cout << x << ' ';
 	check[x] = true;
 	queue[back++] = x;
 
 	while (front != back) {
 		v = queue[front++];
-		for (int i = edge_idx[x - 1]; i < edge_idx[x]; i++) {
+		for (int i = edge_idx[v - 1]; i < edge_idx[v]; i++) {
 			if (check[edge_list[i].c] == false) {
-				cout << edge_list[i].c << ' ';
+				//cout << edge_list[i].c << ' ';
+				printf("%d ", edge_list[i].c);
 				check[edge_list[i].c] = true;
 				queue[back++] = edge_list[i].c;
 			}

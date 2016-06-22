@@ -1,4 +1,5 @@
-#include <iostream>
+//#include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -25,10 +26,12 @@ void make_index_array();
 void dfs(int x);
 
 int main() {
-	cin >> N >> M;
+	//cin >> N >> M;
+	scanf("%d %d", &N, &M);
 
 	for (int i = 0; i < M; i++) {
-		cin >> edge_list[i].p >> edge_list[i].c;
+		//cin >> edge_list[i].p >> edge_list[i].c;
+		scanf("%d %d", &(edge_list[i].p), &(edge_list[i].c));
 	}
 
 	quick_sort(0, M - 1);
@@ -42,7 +45,8 @@ int main() {
 		}
 	}
 
-	cout << conn_count << endl;
+	//cout << conn_count << endl;
+	printf("%d\n", conn_count);
 
 	return 0;
 }
