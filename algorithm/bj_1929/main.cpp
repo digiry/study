@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -19,10 +19,10 @@ int main() {
 		}
 	}
 
-	cin >> start_num >> end_num;
+	scanf("%d %d", &start_num ,&end_num);
 	for (int j = start_num; j <= end_num; j++) {
 		if (no_primes[j] == false) {
-			cout << j << endl;
+			printf("%d\n", j);
 		}
 	}
 
