@@ -1,29 +1,28 @@
-#include <iostream>
+#include <cstdio>
 
 using namespace std;
 
 int T;
 
-char l_stack[600000];
+char l_stack[600001];
 int l_top = -1;
-char r_stack[600000];
+char r_stack[600001];
 int r_top = -1;
 
 int main() {
 	char cmd;
 	char letter;
-	cin >> l_stack;
-	cin >> T;
+	scanf("%s\n", l_stack);
+	scanf("%d\n", &T);
 
-	l_top = 0;
-	while (l_stack[l_top] != '\0') {
-		l_top++;
-	}
+	while (l_stack[++l_top] != '\0') {}
+	l_top--;
+
 	for (int tc = 0; tc < T; tc++) {
-		cin >> cmd;
+		scanf(" %c", &cmd);
 		switch (cmd) {
 		case 'P':
-			cin >> letter;
+			scanf(" %c\n", &letter);
 			l_stack[++l_top] = letter;
 			break;
 		case 'L':
@@ -37,7 +36,9 @@ int main() {
 			}
 			break;
 		case 'B':
-			l_top--;
+			if (l_top != -1) {
+				l_top--;
+			}
 			break;
 		default:
 			break;
@@ -47,8 +48,8 @@ int main() {
 		r_stack[++r_top] = l_stack[l_top--];
 	}
 	while (r_top != -1) {
-		cout << r_stack[r_top--];
+		printf("%c", r_stack[r_top--]);
 	}
-	cout << endl;
+	printf("\n");
 	return 0;
 }
