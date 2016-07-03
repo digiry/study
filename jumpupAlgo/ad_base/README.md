@@ -1,4 +1,4 @@
-My solution for ad test
+My exercise for ad test
 =======================
 
 ## 부분집합(power set)
