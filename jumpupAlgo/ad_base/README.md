@@ -5,6 +5,8 @@ My solution for ad test
 
 공집합을 포함한 모든 부분집합
 
+경우의 수 공집합 포함 : 2^n
+
 ### 부분집합 기본
 
 1. binary-counting powerset
