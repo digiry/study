@@ -23,6 +23,8 @@ My exercise for ad test
 - [ ] 부분집합의 경우들의 합이 주어진 기준 합 일경우 들을 출력
   * 가지치기 활용하기
 
+부분집합의 합 : [https://www.acmicpc.net/problem/1182](https://www.acmicpc.net/problem/1182)
+
 ### 부분집합 실전
 
 - [ ] IOT 장치들을 모두 연결할 수 있게 활성화하는 AP 개수 출력 문제
