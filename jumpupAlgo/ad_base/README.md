@@ -20,8 +20,7 @@ My exercise for ad test
 
 ### 부분집합 응용
 
-- [ ] 부분집합의 경우들의 합이 주어진 기준 합 일경우 들을 출력
-  * 가지치기 활용하기
+- [x] 부분집합의 경우들의 합이 주어진 기준 합 일경우 들을 출력
 
 부분집합의 합 : [https://www.acmicpc.net/problem/1182](https://www.acmicpc.net/problem/1182)
 
