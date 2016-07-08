@@ -72,8 +72,10 @@ int main() {
 		}
 
 		for (int r = 1; r <= visit_len; r++) {
-			currunt_ap_len = r;
-			comb(ap_len, r);
+			if (MIN_AP >= ap_len + 1) {
+				currunt_ap_len = r;
+				comb(ap_len, r);
+			}
 		}
 		if (MIN_AP == ap_len + 1) {
 			MIN_AP = -1;
