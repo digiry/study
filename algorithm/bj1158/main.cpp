@@ -5,7 +5,7 @@ using namespace std;
 // 1 <= M <= N <= 5,000
 int N;
 int M;
-int queue[5000];
+int queue[5001];
 int front = -1;
 int back = -1;
 
