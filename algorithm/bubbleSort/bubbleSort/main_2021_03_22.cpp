@@ -35,9 +35,11 @@ void BubbleSortPro(int* const pArr, const int length) {
 	for (int i = 0; i < length; i++) {
 		for (int j = 0; j < (length - i - 1); j++) {
 			if (pArr[j] > pArr[j + 1]) {
-				pArr[j] = pArr[j] ^ pArr[j + 1];
-				pArr[j + 1] = pArr[j] ^ pArr[j + 1];
-				pArr[j] = pArr[j] ^ pArr[j + 1];
+				if (i != (j+1)) {
+					pArr[j] = pArr[j] ^ pArr[j + 1];
+					pArr[j + 1] = pArr[j] ^ pArr[j + 1];
+					pArr[j] = pArr[j] ^ pArr[j + 1];
+				}
 			}
 		}
 	}
