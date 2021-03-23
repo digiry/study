@@ -60,6 +60,7 @@ void PrintHeap() {
 			nextLevel++;
 			cout << endl;
 		}
+
 		if (HEAP[i] != 0) {
 			cout << HEAP[i] << " ";
 		}
