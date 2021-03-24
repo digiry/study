@@ -18,7 +18,6 @@ void Swap(int* const pArr, const int a_index, const int b_index) {
 
 	pArr[a_index] = pArr[a_index] ^ pArr[b_index];
 	pArr[b_index] = pArr[a_index] ^ pArr[b_index];
-
 	pArr[a_index] = pArr[a_index] ^ pArr[b_index];
 }
 
@@ -36,9 +35,10 @@ void SelectionSort(int* const pArr, const int length) {
 
 int main() {
 	int length = sizeof(ARR) / sizeof(ARR[0]);
+
 	PrintArray(ARR, length);
 	SelectionSort(ARR, length);
 	PrintArray(ARR, length);
-
+	
 	return 0;
 }
