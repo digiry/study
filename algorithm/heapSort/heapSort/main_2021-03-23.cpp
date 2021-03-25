@@ -63,7 +63,7 @@ int Pop() {
 
 	int child = parent << 1;
 	if (child + 1 <= HEAP_COUNT) {
-		child = (HEAP[child] > HEAP[child + 1]) ? child + 1 : child;
+		child = (HEAP[child] > HEAP[child + 1]) ? child + 1: child;
 	}
 
 	while (child <= HEAP_COUNT) {
