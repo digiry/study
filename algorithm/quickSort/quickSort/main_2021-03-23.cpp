@@ -24,13 +24,17 @@ void Swap(int* const pArr, const int a_index, const int b_index) {
 int Partition(int* const pArr, const int left, const int right) {
 	int i = left - 1;
 	int j = left;
-	int p = right;
-	//int p = (left + right) >> 1;
+	// int p = right;
+	int p = (left + right) >> 1; // pivot을 중앙으로 예상시
 
 	while (j < right) {
 		if (pArr[j] < pArr[p]) {
 			i++;
 			Swap(pArr, i, j);
+			// pivot을 중앙으로 예상시
+			if (i == p) {
+				p = j;
+			}
 		}
 		j++;
 	}
