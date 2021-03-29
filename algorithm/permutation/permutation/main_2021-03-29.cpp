@@ -38,8 +38,28 @@ void Permutation(int* const pArr, const int n, const int r) {
 	}
 }
 
+void PermutationRepeat(int* const pArr, const int n, const int r) {
+
+	if (r == 0) {
+		PrintArray(TEMP, _R);
+	}
+	else {
+		for (int i = n - 1; i >= 0; i--) {
+			Swap(pArr, i, n - 1);
+			TEMP[r - 1] = pArr[n - 1];
+			Permutation(pArr, n, r - 1);
+			Swap(pArr, i, n - 1);
+		}
+	}
+}
+
+
 int main() {
 	Permutation(ARR, _N, _R);
+
+	cout << "---" << endl;
+
+	PermutationRepeat(ARR, _N, _R);
 
 	return 0;
 }
