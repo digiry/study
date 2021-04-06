@@ -46,6 +46,29 @@ void SelectionSort(int *const pArr, const User *const pMembers, const int length
 	}
 }
 
+int MinIndex(int* const pArr, const User* const pMembers, const int begin, const int end) {
+	if (begin == end) {
+		return begin;
+	}
+
+	int min = MinIndex(pArr, pMembers, begin + 1, end);
+
+	min = (pMembers[pArr[min]].mWeight < pMembers[pArr[begin]].mWeight) ? min : begin;
+
+	return min;
+}
+
+void SelectionSortRecur(int *const pArr, const User *const pMembers, const int begin, const int end) {
+	if (begin == end) {
+		return;
+	}
+
+	int min = MinIndex(pArr, pMembers, begin, end);
+
+	Swap(pArr, begin, min);
+	SelectionSortRecur(pArr, pMembers, begin + 1, end);
+}
+
 int main() {
 	for (int i = 0; i < LENGTH; i++) {
 		ARR[i] = i;
@@ -55,6 +78,18 @@ int main() {
 	cout << "----" << endl;
 	SelectionSort(ARR, MEMBERS, LENGTH);
 
+	PrintArray(ARR, MEMBERS, LENGTH);
+
+	cout << "Recursion" << endl;
+
+	for (int i = 0; i < LENGTH; i++) {
+		ARR[i] = i;
+	}
+	const int begin = 0;
+	const int end = LENGTH - 1;
+	PrintArray(ARR, MEMBERS, LENGTH);
+	cout << "----" << endl;
+	SelectionSortRecur(ARR, MEMBERS, begin, end);
 	PrintArray(ARR, MEMBERS, LENGTH);
 
 	return 0;
