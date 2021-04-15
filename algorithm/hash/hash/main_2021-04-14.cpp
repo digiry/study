@@ -15,7 +15,7 @@ typedef struct _User {
 
 const int MEMBERS_SIZE = 7;
 User MEMBERS[MEMBERS_SIZE] = { 0, };
-int MEMBERS_LENGTH = 0;
+int NEW_MEMBER_INDEX = 0;
 
 void PrintHash(const int *const pHash_table, const int hash_size) {
 	for (int i = 0; i < hash_size; i++) {
@@ -81,10 +81,10 @@ void Insert(const char* name, const int weight) {
 		return;
 	}
 
-	int current = MEMBERS_LENGTH;
+	int current = NEW_MEMBER_INDEX;
 	StrCpy(name, MEMBERS[current].mName);
 	MEMBERS[current].mWeight = weight;
-	MEMBERS_LENGTH++;
+	NEW_MEMBER_INDEX++;
 
 	int name_length = StrLength(name);
 	int index = Hash(name, name_length);
