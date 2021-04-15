@@ -57,6 +57,15 @@ void PrintLList(Node *const pLList, const int ll_length, const int head) {
 	cout << endl;
 }
 
+void PrintArray(Node* const pLList, const int length) {
+	cout << "ARRAY :" << endl;
+	cout << " HEAD :" << HEAD << endl;
+	cout << " LAST :" << LAST << endl;
+	for (int i = 0; i < length; i++) {
+		cout << i << "- DATA:" << pLList[i].mData << " NEXT:" << pLList[i].mNext << endl;
+	}
+}
+
 void Append(const int value) {
 	if (LLIST_LENGTH == LLIST_SIZE) {
 		return;
@@ -125,6 +134,24 @@ void Insert(const int index, const int value) {
 	}
 }
 
+int Search(const int value) {
+	if (LLIST_LENGTH == 0) {
+		return NULL_VALUE;
+	}
+
+	cout << "SEARCH:" << value << endl;
+	int cursor = HEAD;
+
+	while (cursor != NULL_VALUE) {
+		if (LLIST[cursor].mData == value) {
+			break;
+		}
+		cursor = LLIST[cursor].mNext;
+	}
+
+	return cursor;
+}
+
 int main() {
 	int input_data[8] = { 4,5,6,7,8,9,10,11 };
 
@@ -156,6 +183,12 @@ int main() {
 
 	Insert(3, 15);
 	PrintLList(LLIST, LLIST_LENGTH, HEAD);
+
+	int value = 15;
+	int index = Search(value);
+	PrintLList(LLIST, LLIST_LENGTH, HEAD);
+	cout << "Found:" << "[" << index << "]" << ":" << LLIST[index].mData << endl;
+	PrintArray(LLIST, LLIST_SIZE);
 
 	return 0;
 }
