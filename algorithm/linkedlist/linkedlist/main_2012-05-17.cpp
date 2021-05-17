@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -21,17 +22,48 @@ int POOL_COUNT = 0;
 
 LinkedList LLIST;
 
-void Init(LinkedList* pllist) {
-	LLIST.mLength = 0;
-	LLIST.mHead = NULL;
-	POOL_COUNT = 0;
-}
+const int MEMBERS_SIZE = 9;
+typedef struct _User {
+	char mName[20];
+	int mWeight;
+} User;
+
+User MEMBERS[MEMBERS_SIZE] = {
+	{"abc", 60},
+	{"def", 83},
+	{"ghi", 74},
+	{"jkl", 103},
+	{"mno", 93},
+	{"pqr", 52},
+	{"stu", 71},
+	{"vwx", 89},
+	{"yz", 100},
+};
+
 
 void PrintList(const LinkedList* pllist) {
-	Node* target = pllist->mHead;
-	while (target != NULL) {
-		cout << target->mValue << ' ';
-		target = target->mNext;
+	Node* pTarget = pllist->mHead;
+	while (pTarget != NULL) {
+		cout << pTarget->mValue << ' ';
+		pTarget = pTarget->mNext;
+	}
+
+	cout << endl;
+}
+
+void PrintList(const LinkedList* const pllist, const User* const pMembers) {
+	Node* pTarget = pllist->mHead;
+	while (pTarget != NULL) {
+		cout << "[" << pTarget->mValue << "]" << pMembers[pTarget->mValue].mName << ":" << pMembers[pTarget->mValue].mWeight << ' ';
+		pTarget = pTarget->mNext;
+	}
+
+	cout << endl;
+}
+
+void PrintMembers(const User* const pMembers, const int length) {
+	for (int i = 0; i < length; i++) {
+		cout << "[" << i << "]" << pMembers[i].mName << ":" << pMembers[i].mWeight << ' ';
 	}
 
 	cout << endl;
@@ -43,6 +75,12 @@ Node* NewNode() {
 	}
 
 	return &NODE_POOL[POOL_COUNT++];
+}
+
+void Init(LinkedList* pllist) {
+	LLIST.mLength = 0;
+	LLIST.mHead = NULL;
+	POOL_COUNT = 0;
 }
 
 void Append(LinkedList* const pllist, int value) {
@@ -99,7 +137,7 @@ void Insert(LinkedList* const pllist, const int index, const int value) {
 	pllist->mLength++;
 }
 
-void Remove(LinkedList* const pllist, const int index) {
+void Remove(LinkedList * const pllist, const int index) {
 	if (pllist->mLength == 0) {
 		return;
 	}
@@ -132,7 +170,7 @@ void Remove(LinkedList* const pllist, const int index) {
 	del_node->mNext = NULL;
 }
 
-int Search(LinkedList* const pllist, const int value) {
+int Search(LinkedList * const pllist, const int value) {
 	if (pllist->mLength == 0) {
 		return NOT_FOUND;
 	}
@@ -156,9 +194,33 @@ int Search(LinkedList* const pllist, const int value) {
 	return found;
 }
 
+int Search(LinkedList* const pllist, const User* const pMembers, const char * name) {
+	if (pllist->mLength == 0) {
+		return NOT_FOUND;
+	}
+
+	int found = NOT_FOUND;
+	Node* pTarget = pllist->mHead;
+
+	while (pTarget != NULL) {
+		found++;
+		if (strcmp(pMembers[pTarget->mValue].mName, name) == 0) {
+			break;
+		}
+
+		pTarget = pTarget->mNext;
+	}
+
+	if (pTarget == NULL) {
+		found = NOT_FOUND;
+	}
+
+	return found;
+}
+
 int main() {
 	const int input_data[4] = { 4,5,6,7 };
-
+	
 	cout << "Linked List: Init()" << endl;
 	Init(&LLIST);
 	PrintList(&LLIST);
@@ -199,6 +261,52 @@ int main() {
 	value = 8;
 	cout << "Linked List: Search(" << value << ")" << endl;
 	found = Search(&LLIST, value);
+	cout << ((found != NOT_FOUND) ? "Found: value=" : "Not found: value=") << value << " index=" << found << endl;
+
+	cout << endl;
+
+	cout << "Linked List with MEMBERS" << endl;
+	PrintMembers(MEMBERS, MEMBERS_SIZE);
+
+	cout << "Linked List with MEMBERS: Init()" << endl;
+	Init(&LLIST);
+	PrintList(&LLIST);
+
+	cout << "Linked List with MEMBERS: Append()" << endl;
+	for (int i = 0; i < 4; ++i) {
+		Append(&LLIST, i);
+	}
+	PrintList(&LLIST, MEMBERS);
+
+	index = 0;
+	value = 4;
+	cout << "Linked List with MEMBERS: Insert(" << index << "," << value << ")" << endl;
+	Insert(&LLIST, index, value);
+	PrintList(&LLIST, MEMBERS);
+
+	index = 2;
+	value = 5;
+	cout << "Linked List with MEMBERS: Insert(" << index << "," << value << ")" << endl;
+	Insert(&LLIST, index, value);
+	PrintList(&LLIST, MEMBERS);
+
+	index = 0;
+	cout << "Linked List with MEMBERS: Remove(" << index << ")" << endl;
+	Remove(&LLIST, index);
+	PrintList(&LLIST, MEMBERS);
+
+	index = 2;
+	cout << "Linked List with MEMBERS: Remove(" << index << ")" << endl;
+	Remove(&LLIST, index);
+	PrintList(&LLIST, MEMBERS);
+
+	cout << "Linked List: Search(" << "abc" << ")" << endl;
+	found = Search(&LLIST, MEMBERS, "abc");
+	cout << ((found != NOT_FOUND) ? "Found: value=" : "Not found: value=") << value << " index=" << found << endl;
+
+	value = 8;
+	cout << "Linked List: Search(" << "123" << ")" << endl;
+	found = Search(&LLIST, MEMBERS, "123");
 	cout << ((found != NOT_FOUND) ? "Found: value=" : "Not found: value=") << value << " index=" << found << endl;
 
 	return 0;
