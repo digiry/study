@@ -6,7 +6,7 @@ const int SUCCESS = 1;
 const int FAIL = 0;
 const int TRUE = 1;
 const int FALSE = 0;
-const int BID_MAX = 40000;
+const int BID_MAX = 40001;
 const int ROOMS_MAX_LENGTH = 10000;
 const int DAYS_MAX = 100;
 const int NONE_BID = -1;
@@ -51,13 +51,14 @@ int CanReserve(const int bid, const int cday, const int night);
 
 void init(int M)
 {
+	cout << "init: M=" << M << endl;
 	HEAP_COUNT = 0;
 	MAP_LENGTH = M;
 	// ROOMS 초기화 불필요.
 	NODE_LENGTH = 0;
 	for (int i = 0; i < BID_MAX; ++i) {
 		if (i < ROOMS_MAX_LENGTH) {
-			HEAP[i] = 0;
+			//HEAP[i] = 0;
 			HASH_TABLE[i] = -1;
 			NODE_POOL[i].mBid = NONE_BID;
 			NODE_POOL[i].mNext = NULL;
@@ -66,11 +67,12 @@ void init(int M)
 			RESERVE_MAP[i][j] = EMPTY_ROOM;
 		}
 	}
-	HEAP[ROOMS_MAX_LENGTH] = 0;
+	//HEAP[ROOMS_MAX_LENGTH] = 0;
 }
 
 void add_bnb(int bid, int y, int x, int price, int rating)
 {
+	cout << "add_bnb: bid=" << bid << " y=" << y << " x=" << x << " price=" << price << " rating=" << rating << endl;
 	ROOMS[bid].mPrice = price;
 	ROOMS[bid].mRating = rating;
 
@@ -79,6 +81,7 @@ void add_bnb(int bid, int y, int x, int price, int rating)
 
 int reserve(int bid, int cday, int night)
 {
+	cout << "reserve: bid=" << bid << " cday=" << cday << " night=" << night << endl;
 	for (int i = 0; i < night; ++i) {
 		if (RESERVE_MAP[bid][cday + i] != EMPTY_ROOM) {
 			return FAIL;
@@ -95,6 +98,7 @@ int reserve(int bid, int cday, int night)
 
 int cancel(int bid, int cday)
 {
+	cout << "cancel: bid=" << bid << " cday=" << cday << endl;
 	if (RESERVE_MAP[bid][cday] != CHECKIN) {
 		return FAIL;
 	}
@@ -112,6 +116,7 @@ int cancel(int bid, int cday)
 
 int search(int opt, int y, int x, int cday, int night, int top5_bid[5])
 {
+	cout << "search: opt=" << opt << " y=" << y << " x=" << x << " cday=" << cday << " night=" << night << endl;
 	int top_length = 0;
 	int min_y = (y - opt < 0) ? 0 : y - opt;
 	int max_y = (y + opt >= MAP_LENGTH) ? MAP_LENGTH - 1 : y + opt;
@@ -120,6 +125,7 @@ int search(int opt, int y, int x, int cday, int night, int top5_bid[5])
 	HashNode* pNode = NULL;
 	int index = -1;
 	int nodePool_index = -1;
+	HEAP_COUNT = 0;
 
 	// ROOM 순회
 	for (int y_i = min_y; y_i <= max_y; ++y_i) {
@@ -152,37 +158,42 @@ int search(int opt, int y, int x, int cday, int night, int top5_bid[5])
 	return top_length;
 }
 
+// a == b : 0
+// a > b  : 1
+// a < b  : -1
 int CompareRooms(const int a_bid, const int b_bid) {
+	cout << "CompareRooms: a_bid=" << a_bid << " b_bid=" << b_bid << endl;
 	if (a_bid == b_bid) {
-		return a_bid;
+		return 0;
 	}
 
-	int best = -1;
+	int result = -1;
 
 	if (ROOMS[a_bid].mPrice < ROOMS[b_bid].mPrice) {
-		return a_bid;
+		return -1;
 	}
 	else if (ROOMS[a_bid].mPrice > ROOMS[b_bid].mPrice) {
-		return b_bid;
+		return 1;
 	}
 
 	if (ROOMS[a_bid].mPrice == ROOMS[b_bid].mPrice) {
 		if (ROOMS[a_bid].mRating > ROOMS[b_bid].mRating) {
-			return a_bid;
+			return -1;
 		}
 		else if (ROOMS[a_bid].mRating < ROOMS[b_bid].mRating) {
-			return b_bid;
+			return 1;
 		}
 	}
 
 	if (ROOMS[a_bid].mRating == ROOMS[b_bid].mRating) {
-		best = (a_bid > b_bid) ? a_bid : b_bid;
+		result = (a_bid > b_bid) ? -1 : 1;
 	}
 
-	return best;
+	return result;
 }
 
 int Hash(const int y, const int x) {
+	cout << "Hash: y=" << y << " x=" << x << endl;
 	int hash = 0;
 
 	hash = ((y + 1) * 100 + (x + 4) * 1000) % ROOMS_MAX_LENGTH;
@@ -191,6 +202,7 @@ int Hash(const int y, const int x) {
 }
 
 void Add_HashTable(const int bid, const int y, const int x) {
+	cout << "Add_HashTable: bid=" << bid << " y=" << y << " x=" << x << endl;
 	int index = Hash(y, x);
 	int nodePool_index = HASH_TABLE[index];
 	HashNode* pNode = NULL;
@@ -210,9 +222,8 @@ void Add_HashTable(const int bid, const int y, const int x) {
 	HashNode* pPrev = &NODE_POOL[nodePool_index];
 	pNode = pPrev;
 	int t_bid = pNode->mBid;
-	int best_bid = CompareRooms(t_bid, bid);
 
-	while (best_bid == t_bid) {
+	while (CompareRooms(t_bid, bid) < 0) {
 		pPrev = pNode;
 		pNode = pNode->mNext;
 
@@ -220,7 +231,6 @@ void Add_HashTable(const int bid, const int y, const int x) {
 			break;
 		}
 		t_bid = pNode->mBid;
-		best_bid = CompareRooms(t_bid, bid);
 	}
 
 	HashNode* pNew = &NODE_POOL[NODE_LENGTH];
@@ -232,6 +242,7 @@ void Add_HashTable(const int bid, const int y, const int x) {
 }
 
 int CanReserve(const int bid, const int cday, const int night) {
+	cout << "CanReserve: bid=" << bid << " cday=" << cday << " night=" << night << endl;
 	for (int i = 0; i < night; ++i) {
 		if (RESERVE_MAP[bid][cday + i] != EMPTY_ROOM) {
 			return FALSE;
@@ -255,22 +266,19 @@ void Push(const int bid) {
 	HEAP_COUNT++;
 	HEAP[HEAP_COUNT] = bid;
 	int child = HEAP_COUNT;
-	int c_bid = bid;
 	int parent = child >> 1;
-	int p_bid = HEAP[parent];
 
-
-	int best_bid = CompareRooms(p_bid, c_bid);
-	while (parent > OVER_ROOT && best_bid == c_bid) {
+	while (parent > OVER_ROOT && CompareRooms(HEAP[parent], HEAP[child]) > 0) {
+		cout << "Pop: p=" << parent << " c=" << child << endl;
 		// Swap(HEAP, parent, child);
-		HEAP[parent] = HEAP[parent] ^ HEAP[child];
-		HEAP[child] = HEAP[parent] ^ HEAP[child];
-		HEAP[parent] = HEAP[parent] ^ HEAP[child];
+		if (parent != child) {
+			HEAP[parent] = HEAP[parent] ^ HEAP[child];
+			HEAP[child] = HEAP[parent] ^ HEAP[child];
+			HEAP[parent] = HEAP[parent] ^ HEAP[child];
+		}
 
 		child = parent;
 		parent = child >> 1;
-		p_bid = HEAP[parent];
-		best_bid = CompareRooms(p_bid, c_bid);
 	}
 }
 
@@ -281,40 +289,32 @@ int Pop() {
 	HEAP_COUNT--;
 
 	int child = parent << 1;
-	int c1_bid = HEAP[child];
-	int c2_bid = -1;
-	int best_bid = -1;
-	int p_bid = -1;
-	int c_bid = -1;
-
 	if (child + 1 <= HEAP_COUNT) {
-		c2_bid = HEAP[child + 1];
-		best_bid = CompareRooms(c1_bid, c2_bid);
-		child = (best_bid == c1_bid) ? child : child + 1;
+		child = (CompareRooms(HEAP[child], HEAP[child + 1]) < 0) ? child : child + 1;
 	}
 
 	while (child <= HEAP_COUNT) {
-		p_bid = HEAP[parent];
-		c_bid = HEAP[child];
-		best_bid = CompareRooms(p_bid, c_bid);
-
-		if (best_bid == c_bid) {
+		cout << "Pop: p=" << parent << " c=" << child << endl;
+		if (CompareRooms(HEAP[parent], HEAP[child]) > 0) {
 			// Swap(HEAP, parent, child);
-			HEAP[parent] = HEAP[parent] ^ HEAP[child];
-			HEAP[child] = HEAP[parent] ^ HEAP[child];
-			HEAP[parent] = HEAP[parent] ^ HEAP[child];
+			if (parent != child) {
+				HEAP[parent] = HEAP[parent] ^ HEAP[child];
+				HEAP[child] = HEAP[parent] ^ HEAP[child];
+				HEAP[parent] = HEAP[parent] ^ HEAP[child];
+			}
 
 			parent = child;
 			child = parent << 1;
-			c1_bid = HEAP[child];
 			if (child + 1 <= HEAP_COUNT) {
-				c2_bid = HEAP[child + 1];
-				best_bid = CompareRooms(c1_bid, c2_bid);
-				child = (best_bid == c1_bid) ? child : child + 1;
+				child = (CompareRooms(HEAP[child], HEAP[child + 1]) < 0) ? child : child + 1;
 			}
 		}
 		else {
-			break;
+			parent = child;
+			child = parent << 1;
+			if (child + 1 <= HEAP_COUNT) {
+				child = (CompareRooms(HEAP[child], HEAP[child + 1]) < 0) ? child : child + 1;
+			}
 		}
 	}
 
