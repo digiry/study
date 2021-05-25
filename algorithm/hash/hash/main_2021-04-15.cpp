@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <bitset>
 
 using namespace std;
 
@@ -73,6 +74,23 @@ int Hash(const char* src, const int length) {
 	index %= HT_SIZE;
 
 	return index;
+}
+
+int Hash2(const char* src) {
+	long hash = 0;
+
+	cout << "sizeof: " << sizeof(long long) << endl;
+
+	cout << "Hash2: src=" << src << endl;
+	while (*src != '\0') {
+		hash = (hash << 5) + (*src - 'a');
+		cout << "latter: " << *src << ": bit : " << bitset<5>((*src - 'a')) << endl;
+		cout << "hash: " << bitset<64>(hash) << endl;
+		++src;
+	}
+	cout << "hash: " << hash << " % " << HT_SIZE << "=" << int(hash % HT_SIZE) << endl;
+
+	return int(hash % HT_SIZE);
 }
 
 void Add(const char* name, const int weight) {
@@ -154,7 +172,7 @@ int main() {
 		{"pqr", 77},
 		{"stu", 98},
 	};
-
+	
 	for (int i = 0; i < HT_SIZE; ++i) {
 		HASH_TABLE[i] = NULL_VALUE;
 	}
@@ -170,6 +188,10 @@ int main() {
 	int index = Search("stu");
 	cout << "FOUND:[" << index << "]" << MEMBERS[index].mName << ":" << MEMBERS[index].mWeight << endl;
 	PrintHashTable(HASH_TABLE, HT_SIZE);
+
+	for (int i = 0; i < 7; ++i) {
+		Hash2(input_data[i].mName);
+	}
 
 	return 0;
 }
