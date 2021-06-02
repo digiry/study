@@ -1,0 +1,22 @@
+TC
+10
+Q  N
+10 10
+CMD_PUT		100
+CMD_DEL		200
+CMD_GET 	300
+CMD_GETKEY	400
+put key    val
+100 fCw5RR yh0jg
+100 kraScd88A tg9CzJtjJSc
+100 lDdq3nmaZa cnxG
+del key
+200 kraScd88A
+100 xXh4mdmBw jr1YWcZde1dC
+100 1swP6zOI yuR1vV
+getk val  key
+400  cnxG lDdq3nmaZa
+100 6HS0Tbd0sqk eot5M
+get key      val
+300 1swP6zOI yuR1vV
+100 flR9soCA 2Mxkp5xM
