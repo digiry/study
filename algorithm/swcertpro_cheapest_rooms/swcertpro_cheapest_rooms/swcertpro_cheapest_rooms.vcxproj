@@ -140,7 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="user.cpp" />
+    <ClCompile Include="user.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="user_2021-06-08.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
