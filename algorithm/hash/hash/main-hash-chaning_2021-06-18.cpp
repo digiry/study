@@ -108,7 +108,7 @@ void PrintHashTable(HashTable* const pTable) {
 	Node* node = NULL;
 	for (int hash_i = 0; hash_i < MAX_TABLE_SIZE; ++hash_i) {
 		node = pTable->mTable[hash_i];
-		cout << "Hash index: " << hash_i << " range: [" << (hash_i * 10) << "~" << (hash_i * 10) + 9 << "]" << endl;
+		cout << "Hash index: " << hash_i << " range: [" << (hash_i * CHUNK_SIZE) << "~" << (hash_i * CHUNK_SIZE) + 9 << "]" << endl;
 		cout << "> Data: ";
 		if (node == NULL) {
 			cout << endl;
