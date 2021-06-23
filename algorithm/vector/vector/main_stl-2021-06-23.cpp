@@ -67,12 +67,10 @@ int main()
     cout << words1 << endl;
     
     cout << '\n' << "swap()" << endl;
-    cout << "words1: " << words1 << endl;
-    cout << "words2: " << words2 << endl;
-    cout << '\n' << "after swap()" << endl;
-    words1.swap(words2);
-    cout << "words1: " << words1 << endl;
-    cout << "words2: " << words2 << endl;
+    swap(words1[0], words1[1]);
+    cout << words1 << endl;
+    iter_swap(words1.begin(), words1.begin()+1);
+    cout << words1 << endl;
 
     cout << '\n' << "another swap()" << endl;
     vector<int> a1{ 1, 2, 3 }, a2{ 4, 5 };
