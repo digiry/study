@@ -34,17 +34,17 @@ int main()
     vector<string> words4(5, "Mo");
     cout << "words4: " << words4 << '\n';
 
-    cout << '\n' << "foreach vactor" << endl;
+    cout << '\n' << "foreach vector" << endl;
     for(const auto & word:words1) {
         cout << ": " << word << endl;
     }
 
-    cout << '\n' << "for-loop vactor" << endl;
+    cout << '\n' << "for-loop vector" << endl;
     for (vector<string>::iterator it = words1.begin(); it != words1.end(); ++it) {
         cout << ": " << *it << endl;
     }
 
-    cout << '\n' << "vactor[0]" << endl;
+    cout << '\n' << "vector[0]" << endl;
     cout << words1[0] << endl;
     cout << words1.at(0) << endl;
 
