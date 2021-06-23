@@ -89,5 +89,14 @@ int main()
     // original elements, e.g. it1 that pointed to an element in 'a1' with value 2
     // still points to the same element, though this element was moved into 'a2'.
 
+    cout << '\n' << "find('also') " << endl;
+    auto it = find(words1.begin(), words1.end(), "also");
+    if (it == words1.end()) {
+        cout << "Not found" << endl;
+    }
+    else {
+        cout << "index: " << it - words1.begin() << endl;
+    }
+
     return 0;
 }
