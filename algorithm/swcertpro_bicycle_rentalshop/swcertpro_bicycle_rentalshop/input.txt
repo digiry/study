@@ -1,6 +1,31 @@
 1 100
-4 0
+28 0
 100 2 12 5 3
+200 3 0 1
+400 5 alice 0 -1
 300 6 alice 4
 300 7 bobby 19
-400 5  alice 0  -1
+200 8 1 1
+400 10 alice 1 -1
+400 13 bobby 1 0
+300 14 alice 15
+400 16 alice 1 -1
+500 20 alice 0 -1
+500 25 bobby 0 0
+400 26 bobby 0 -1
+400 27 alice 0 0
+300 28 bobby 3
+400 30 bobby 0 12
+500 32 alice 1 4
+300 33 alice 5
+300 34 alice 15
+300 35 bobby 5
+500 36 bobby 1 0
+400 37 bobby 1 5
+400 38 alice 1 -1
+400 39 alice 1 0
+500 40 bobby 0 1
+500 44 alice 0 0
+400 47 alice 0 5
+300 52 alice 4
+500 60 alice 1 4

@@ -3,7 +3,7 @@
 
 #define NULL 0
 
-const int NOT_RENT = -1;
+const int NOT_RENT = 0;
 const int MAX_BICYCLES = 20000;
 
 int BICYCLE_DURABLETIME = 0;
@@ -23,6 +23,7 @@ Bicycle BICYCLES[MAX_BICYCLES];
 
 const int MAX_NAME_LENGTH = MAXL;
 const int NO_BICYCLE = -1;
+int BICYCLES_LAST_INDEX = 0;
 
 typedef struct _user {
 	char mName[MAX_NAME_LENGTH];
@@ -33,7 +34,7 @@ typedef struct _user {
 
 
 const int MAX_HASH_TABLE = 20000;
-const int NO_USER = -1;
+const unsigned long NO_USER = -1;
 User USERS_HASHTABLE[MAX_HASH_TABLE];
 
 unsigned long hash(const char* name);
@@ -57,14 +58,21 @@ typedef struct _vector {
 	void Sort();
 	void _mergeSort(const int left, const int right);
 	void _merge(const int left, const int mid, const int right);
-	Bicycle& operator[](const int index);
+	int operator[](const int index);
 } Vector;
 
 const int MAX_STATIONS = 100;
+const int NO_STATION = -1;
+const int NO_TIME = 0;
+const int NO_VALIDTIME = 0;
 
 typedef struct _station {
 	int mDeliverytime;
+	int mRentableBicycles;
 	Vector mBicycleVector;
+
+	_station() :mDeliverytime(0), mRentableBicycles(0) {}
+	int GetBicycle(const int currentTime);
 } Station;
 
 Station STATIONS[MAX_STATIONS];
@@ -73,36 +81,116 @@ void init(int N, int durableTime, int deliveryTimes[MAXN])
 {
 	STATION_COUNT = N;
 	BICYCLE_DURABLETIME = durableTime;
+	BICYCLES_LAST_INDEX = 0;
 	// init USERS
 	for (register int i = 0; i < MAX_HASH_TABLE; ++i) {
 		USERS_HASHTABLE[i].mName[0] = '\0';
+		USERS_HASHTABLE[i].mRentBicycleIndex = NO_BICYCLE;
+		USERS_HASHTABLE[i].mTicketBuyTime = NO_TIME;
+		USERS_HASHTABLE[i].mTicketValidTime = NO_VALIDTIME;
 	}
 	// init Station
 	for (register int i = 0; i < N; ++i) {
 		STATIONS[i].mDeliverytime = deliveryTimes[i];
 		STATIONS[i].mBicycleVector.Clear();
+		STATIONS[i].mRentableBicycles = 0;
 	}
 }
 
 void addBicycle(int cTimestamp, int pID, int bicycleNum)
 {
+	for (int i = 0; i < bicycleNum; ++i) {
+		BICYCLES[BICYCLES_LAST_INDEX].mStationIndex = pID;
+		BICYCLES[BICYCLES_LAST_INDEX].mRideTime = 0;
+		BICYCLES[BICYCLES_LAST_INDEX].mRentTime = NOT_RENT;
+		BICYCLES[BICYCLES_LAST_INDEX].mDeleted = false;
+		BICYCLES[BICYCLES_LAST_INDEX].mStartTime = cTimestamp;
+		
+		STATIONS[pID].mBicycleVector.Append(BICYCLES_LAST_INDEX);
+		STATIONS[pID].mRentableBicycles++;
+		++BICYCLES_LAST_INDEX;
+	}
 
+	STATIONS[pID].mBicycleVector.Sort();
 }
 
 void buyTicket(int cTimestamp, char uName[MAXL], int validTime)
 {
-	add_user_hashtable(uName, cTimestamp, validTime);
+	unsigned long index = search_user_index(uName);
+
+	if (index == NO_USER) {
+		add_user_hashtable(uName, cTimestamp, validTime);
+		return;
+	}
+
+	int expired = USERS_HASHTABLE[index].mTicketBuyTime + USERS_HASHTABLE[index].mTicketValidTime;
+	if (expired <= cTimestamp) {
+		USERS_HASHTABLE[index].mTicketValidTime += validTime;
+	}
+	else {
+		USERS_HASHTABLE[index].mTicketBuyTime = cTimestamp;
+		USERS_HASHTABLE[index].mTicketValidTime = validTime;
+	}
 }
 
 int rentBicycle(int cTimestamp, char uName[MAXL], int pID)
 {
-	unsigned long index = search_user_index(uName);
-	return -2;
+	unsigned long user_index = search_user_index(uName);
+	if (user_index == NO_USER) {
+		return -1;
+	}
+	if (USERS_HASHTABLE[user_index].mRentBicycleIndex != NO_BICYCLE) {
+		return -1;
+	}
+
+	if (STATIONS[pID].mRentableBicycles == 0) {
+		return -1;
+	}
+
+	int expired = USERS_HASHTABLE[user_index].mTicketBuyTime + USERS_HASHTABLE[user_index].mTicketValidTime;
+	if (expired <= cTimestamp) {
+		return -1;
+	}
+
+	int bicycle_index = STATIONS[pID].GetBicycle(cTimestamp);
+
+	USERS_HASHTABLE[user_index].mRentBicycleIndex = bicycle_index;
+	STATIONS[pID].mRentableBicycles--;
+	BICYCLES[bicycle_index].mRentTime = cTimestamp;
+
+	return BICYCLES[bicycle_index].mRideTime;
 }
 
 int returnBicycle(int cTimestamp, char uName[MAXL], int pID)
 {
-	return -2;
+	unsigned long user_index = search_user_index(uName);
+	if (USERS_HASHTABLE[user_index].mRentBicycleIndex == NO_BICYCLE) {
+		return -1;
+	}
+
+	int delayed = cTimestamp - (USERS_HASHTABLE[user_index].mTicketBuyTime + USERS_HASHTABLE[user_index].mTicketValidTime - 1);
+	if (delayed <= 0) {
+		delayed = 0;
+	}
+
+	int bicycle_index = USERS_HASHTABLE[user_index].mRentBicycleIndex;
+	int ride_time = cTimestamp - BICYCLES[bicycle_index].mRentTime;
+	USERS_HASHTABLE[user_index].mRentBicycleIndex = NO_BICYCLE;
+
+	if (ride_time > BICYCLE_DURABLETIME) {
+		BICYCLES[bicycle_index].mDeleted = false;
+		BICYCLES[bicycle_index].mRentTime = NOT_RENT;
+		BICYCLES[bicycle_index].mRideTime = 0;
+		BICYCLES[bicycle_index].mStationIndex = pID;
+		BICYCLES[bicycle_index].mStartTime = cTimestamp + STATIONS[pID].mDeliverytime;
+	}
+	else {
+		BICYCLES[bicycle_index].mRentTime = ride_time;
+	}
+	STATIONS[pID].mBicycleVector.mLastSortedIndex = 0;
+	STATIONS[pID].mBicycleVector.Sort();
+
+	return delayed;
 }
 
 // User Hash
@@ -113,7 +201,7 @@ unsigned long hash(const char* name) {
 
 	while (character > 0) {
 		index = index << 5;
-		index = index + unsigned long(character);
+		index = index + character;
 		index = index % MAX_HASH_TABLE;
 		character = *(++name);
 	}
@@ -121,29 +209,29 @@ unsigned long hash(const char* name) {
 }
 
 void add_user_hashtable(const char* name, const int buyTime, const int validTime) {
-	unsigned long index = hash(name);
+	unsigned long user_index = hash(name);
 
-	while (USERS_HASHTABLE[index].mName[0] != NULL) {
-		if (StrCmp(USERS_HASHTABLE[index].mName, name) == 0) {
+	while (USERS_HASHTABLE[user_index].mName[0] != NULL) {
+		if (StrCmp(USERS_HASHTABLE[user_index].mName, name) == 0) {
 			return;
 		}
-		index = (index+1) % MAX_HASH_TABLE;
+		user_index = (user_index+1) % MAX_HASH_TABLE;
 	}
-	StrCpy(USERS_HASHTABLE[index].mName, name);
-	USERS_HASHTABLE[index].mTicketBuyTime = buyTime;
-	USERS_HASHTABLE[index].mTicketValidTime = validTime;
-	USERS_HASHTABLE[index].mRentBicycleIndex = NO_BICYCLE;
+	StrCpy(USERS_HASHTABLE[user_index].mName, name);
+	USERS_HASHTABLE[user_index].mTicketBuyTime = buyTime;
+	USERS_HASHTABLE[user_index].mTicketValidTime = validTime;
+	USERS_HASHTABLE[user_index].mRentBicycleIndex = NO_BICYCLE;
 }
 
 unsigned long search_user_index(const char* name) {
-	unsigned long index = hash(name);
+	unsigned long user_index = hash(name);
 	int count = 0;
 
-	while (count < MAX_HASH_TABLE && USERS_HASHTABLE[index].mName[0] != NULL) {
-		if (StrCmp(USERS_HASHTABLE[index].mName, name) == 0) {
-			return index;
+	while (count < MAX_HASH_TABLE && USERS_HASHTABLE[user_index].mName[0] != NULL) {
+		if (StrCmp(USERS_HASHTABLE[user_index].mName, name) == 0) {
+			return user_index;
 		}
-		index = (index + 1) % MAX_HASH_TABLE;
+		user_index = (user_index + 1) % MAX_HASH_TABLE;
 		++count;
 	}
 
@@ -253,7 +341,7 @@ void _vector::_mergeSort(const int left, const int right) {
 
 	int mid = (left + right) >> 1;
 	this->_mergeSort(left, mid);
-	this->_mergeSort(mid, right);
+	this->_mergeSort(mid + 1, right);
 	this->_merge(left, mid, right);
 }
 
@@ -285,7 +373,21 @@ void _vector::_merge(const int left, const int mid, const int right) {
 	}
 }
 
-Bicycle& _vector::operator[](const int index) {
+int _vector::operator[](const int index) {
 	int bicycle_index = this->mpBicycles[index];
-	return BICYCLES[bicycle_index];
+	return bicycle_index;
+}
+
+int _station::GetBicycle(const int currentTime)
+{
+	int index = this->mBicycleVector[0];
+	if (BICYCLES[index].mDeleted == true) {
+		return NO_BICYCLE;
+	}
+
+	if (BICYCLES[index].mStartTime > currentTime) {
+		return NO_BICYCLE;
+	}
+
+	return index;
 }
