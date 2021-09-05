@@ -46,9 +46,11 @@ typedef struct _waitPQ {
 	_waitPQ(const int option);
 	~_waitPQ();
 
+	int GetLength();
 	void Clear();
 	void Push(const int rID);
 	int Pop();
+	int _pop();
 } WaitPQ;
 
 WaitPQ WAITPQ_ASC(OPTION_ASC);
@@ -107,27 +109,85 @@ void init(int N) {
 }
 
 int callJob(int cTime, int wID, int mNum, int mOpt) {
-	if (mOpt == OPTION_ASC && WAITPQ_ASC.mLength == 0) {
+	if (mOpt == OPTION_ASC && WAITPQ_ASC.GetLength() == 0) {
 		return 0;
+	}
+
+	if (mOpt == OPTION_DESC && WAITPQ_DESC.GetLength() == 0) {
+		return 0;
+	}
+
+	int sum_IQ = 0;
+	int rID = NONE_ROBOT_ID;
+	for (int i = 0; i < mNum; ++i) {
+		if (mOpt == OPTION_ASC) {
+			rID = WAITPQ_ASC.Pop();
+		} else {
+			rID = WAITPQ_DESC.Pop();
+		}
+		ROBOTS[rID].CalculateIQ(cTime);
+		WORKSPACES.mVector[wID].Append(rID);
+		ROBOTS[rID].mStatus = WORKING;
+		ROBOTS[rID].mWorkID = wID;
+
+		sum_IQ += rID;
 	}
 	return 0;
 }
 
 void returnJob(int cTime, int wID) {
-
+	int rID = NONE_ROBOT_ID;
+	for (int i = 0; i < WORKSPACES.mVector[wID].mLength; ++i) {
+		rID = WORKSPACES.mVector[wID][i];
+		ROBOTS[rID].mUpdatedTime = cTime;
+		ROBOTS[rID].mStatus = TRAINING;
+		ROBOTS[rID].mWorkID = NONE_WORKSPACE;
+		WAITPQ_ASC.Push(rID);
+		WAITPQ_DESC.Push(rID);
+	}
+	WORKSPACES.mVector[wID].mLength = 0;
+	WORKSPACES.mVector[wID].mLastSortedIndex = 0;
 }
 
-void broken(int cTme, int rID) {
+void broken(int cTime, int rID) {
+	if (ROBOTS[rID].mStatus == BROKEN) {
+		return;
+	}
 
+	if (ROBOTS[rID].mStatus == TRAINING) {
+		ROBOTS[rID].CalculateIQ(cTime);
+		return;
+	}
+	
+	ROBOTS[rID].mStatus = BROKEN;
 }
 
 void repair(int cTime, int rID) {
+	if (ROBOTS[rID].mStatus == BROKEN) {
+		return;
+	}
 
+	ROBOTS[rID].mIQ = 0;
+	ROBOTS[rID].mWorkID = NONE_WORKSPACE;
+	ROBOTS[rID].mUpdatedTime = cTime;
+	ROBOTS[rID].mStatus = TRAINING;
+
+	WAITPQ_ASC.Push(rID);
+	WAITPQ_DESC.Push(rID);
 }
 
 int check(int cTime, int rID) {
+	if (ROBOTS[rID].mStatus == BROKEN) {
+		return 0;
+	}
 
-	return 0;
+	if (ROBOTS[rID].mStatus == WORKING) {
+		return ROBOTS[rID].mWorkID * (-1);
+	}
+
+	ROBOTS[rID].CalculateIQ(cTime);
+
+	return ROBOTS[rID].mIQ;
 }
 
 void Swap(int* mHeap, const int a_index, const int b_index) {
@@ -158,7 +218,7 @@ void _robot::CalculateIQ(const int cTime) {
 	this->mIQ = this->mIQ + (cTime - this->mUpdatedTime);
 }
 
-// ³·Àº Áö´É ¿ì¼± ¼øÀ§
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
 bool _robot::operator<(const _robot& rhs) {
 	if (this->mIQ == rhs.mIQ) {
 		return (this->mID < rhs.mID);
@@ -167,7 +227,7 @@ bool _robot::operator<(const _robot& rhs) {
 }
 
 
-// ³ôÀº Áö´É ¿ì¼± ¼øÀ§
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
 bool _robot::operator>(const _robot& rhs) {
 	if (this->mIQ == rhs.mIQ) {
 		return (this->mID < rhs.mID);
@@ -190,6 +250,21 @@ _waitPQ::~_waitPQ() {
 
 void _waitPQ::Clear() {
 	this->mLength = 0;
+}
+
+int _waitPQ::GetLength() {
+	if (this->mLength == 0) {
+		return 0;
+	}
+
+	int length = 0;
+	for (int i = 1; i <= this->mLength; ++i) {
+		if (ROBOTS[this->mHeap[i]].mStatus == WORKING) {
+			++length;
+		}
+	}
+
+	return length;
 }
 
 void _waitPQ::Push(const int rID) {
@@ -215,8 +290,18 @@ void _waitPQ::Push(const int rID) {
 }
 
 int _waitPQ::Pop() {
+	int rID = this->_pop();
+
+	while (ROBOTS[rID].mStatus != WORKING) {
+		rID = this->_pop();
+	}
+
+	return rID;
+}
+
+int _waitPQ::_pop() {
 	int rID = this->mHeap[HEAP_ROOT];
-		this->mHeap[HEAP_ROOT] = this->mHeap[this->mLength];
+	this->mHeap[HEAP_ROOT] = this->mHeap[this->mLength];
 	--this->mLength;
 
 	int parent = HEAP_ROOT;
