@@ -337,6 +337,8 @@ int _waitPQ::_pop() {
 			}
 		}
 	}
+
+	return rID;
 }
 
 /// Vector
