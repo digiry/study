@@ -21,6 +21,15 @@
     <ClCompile Include="2021-12-06-user.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="2021-12-08-user.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2021-12-08-user2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2021-12-08-user3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt">

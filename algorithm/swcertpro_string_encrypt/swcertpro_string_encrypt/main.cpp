@@ -61,7 +61,6 @@ int main() {
 			int user_ans = change(string_A, string_B);
 			int ans;
 			scanf("%d", &ans);
-
 			if (ans != user_ans)
 			{
 				score = 0;
