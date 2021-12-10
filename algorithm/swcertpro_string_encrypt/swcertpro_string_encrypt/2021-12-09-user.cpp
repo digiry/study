@@ -29,9 +29,9 @@ IndexNode* GetNodeByIndex(const int index);
 void DeleteNodeByIndex(const int index);
 
 void StrCopy(const char* src, char* dest);
-void Swap(int* pArray, const int a_index, const int b_index);
-void QuickSort(int* pArray, const int left, const int right);
-int Partition(int* pArray, const int left, const int right);
+void Swap(int* const pArray, const int a_index, const int b_index);
+void QuickSort(int* const pArray, const int left, const int right);
+int Partition(int* const pArray, const int left, const int right);
 
 void init(int N, char init_string[]) {
 	SRC_STRING_LENGTH = N;
@@ -67,9 +67,11 @@ void init(int N, char init_string[]) {
 	}
 }
 
+// Important: 전역으로 사용 필요.
+int CANDIDATES[MAX_STRING_SIZE] = { 0, };
+
 int change(char string_A[], char string_B[]) {
 	register int count = 0;
-	register int candidates[MAX_STRING_SIZE] = { 0, };
 	register int candidates_length = 0;
 
 	register int first = string_A[0] - 'a';
@@ -77,21 +79,18 @@ int change(char string_A[], char string_B[]) {
 	register int third = string_A[2] - 'a';
 
 	register IndexNode* pNode = KEY_MAP[first][second][third].mHead.mNext;
-	//if (pNode == NULL) {
-	//	return 0;
-	//}
 
 	while (pNode != NULL) {
-		candidates[candidates_length++] = pNode->mIndex;
+		CANDIDATES[candidates_length++] = pNode->mIndex;
 		pNode = pNode->mNext;
 	}
 
-	QuickSort(candidates, 0, candidates_length - 1);
+	QuickSort(CANDIDATES, 0, candidates_length - 1);
 
 	register int previous = -3;
 	register int index = 0;
 	for (register int i = 0; i < candidates_length; ++i) {
-		index = candidates[i];
+		index = CANDIDATES[i];
 		if (index - previous < 3) {
 			continue;
 		}
@@ -134,7 +133,7 @@ inline IndexNode* GetNodeByIndex(const int index) {
 	return &INDEX_NODE_POOL[index];
 }
 
-inline void Swap(int* pArray, const int a_index, const int b_index) {
+inline void Swap(int* const pArray, const int a_index, const int b_index) {
 	if (a_index == b_index) {
 		return;
 	}
@@ -144,17 +143,17 @@ inline void Swap(int* pArray, const int a_index, const int b_index) {
 	pArray[a_index] = pArray[a_index] ^ pArray[b_index];
 }
 
-void QuickSort(int* pArray, const int left, const int right) {
+void QuickSort(int* const pArray, const int left, const int right) {
 	if (left >= right) {
 		return;
 	}
 
-	register int pivot = Partition(pArray, left, right);
+	int pivot = Partition(pArray, left, right);
 	QuickSort(pArray, left, pivot - 1);
 	QuickSort(pArray, pivot + 1, right);
 }
 
-inline int Partition(int* pArray, const int left, const int right) {
+inline int Partition(int* const pArray, const int left, const int right) {
 	register int i = left;
 	register int j = left - 1;
 	register int pivot = (left + right) >> 1;
