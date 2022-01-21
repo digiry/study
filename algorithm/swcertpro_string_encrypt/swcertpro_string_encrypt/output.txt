@@ -1,0 +1,85 @@
+INIT>>> init_str: 
+baaabbbbbb
+MARK: baa - hash: 1024
+   List.Add: 0
+MARK: aaa - hash: 0
+   List.Add: 1
+MARK: aab - hash: 1
+   List.Add: 2
+MARK: abb - hash: 33
+   List.Add: 3
+MARK: bbb - hash: 1057
+   List.Add: 4
+MARK: bbb - hash: 1057
+   List.Add: 5
+MARK: bbb - hash: 1057
+   List.Add: 6
+MARK: bbb - hash: 1057
+   List.Add: 7
+CHANGE>>> A:baa B:aba
+   List.Pop: 0
+   List.Add: 0
+   List.Pop: 0
+UNMK: baa - hash: 1024
+UNMK: aaa - hash: 0
+   List.Remove: 1
+UNMK: aab - hash: 1
+   List.Remove: 2
+Init_str: 
+abaabbbbbb
+MARK: aba - hash: 32
+   List.Add: 0
+MARK: baa - hash: 1024
+   List.Add: 1
+MARK: aab - hash: 1
+   List.Add: 2
+CHANGE>>> A:aaa B:bba
+CHANGE>>> A:bbb B:abb
+   List.Pop: 4
+   List.Pop: 5
+   List.Pop: 6
+   List.Add: 4
+   List.Pop: 4
+UNMK: aab - hash: 1
+   List.Remove: 2
+UNMK: abb - hash: 33
+   List.Remove: 3
+UNMK: bbb - hash: 1057
+UNMK: bbb - hash: 1057
+UNMK: bbb - hash: 1057
+Init_str: 
+abaaabbbbb
+MARK: aaa - hash: 0
+   List.Add: 2
+MARK: aab - hash: 1
+   List.Add: 3
+MARK: abb - hash: 33
+   List.Add: 4
+MARK: bbb - hash: 1057
+   List.Add: 5
+MARK: bbb - hash: 1057
+   List.Add: 6
+   List.Pop: 5
+UNMK: aab - hash: 1
+   List.Remove: 3
+UNMK: abb - hash: 33
+   List.Remove: 4
+UNMK: bbb - hash: 1057
+UNMK: bbb - hash: 1057
+   List.Remove: 6
+UNMK: bbb - hash: 1057
+   List.Remove: 7
+Init_str: 
+abaaaabbbb
+MARK: aaa - hash: 0
+   List.Add: 3
+MARK: aab - hash: 1
+   List.Add: 4
+MARK: abb - hash: 33
+   List.Add: 5
+MARK: bbb - hash: 1057
+   List.Add: 6
+MARK: bbb - hash: 1057
+   List.Add: 7
+#1 0
+Total score : 0
