@@ -1,0 +1,13 @@
+1 100
+11
+1
+2 about 1
+2 about 2
+2 above 1
+2 admit 1
+2 adult 1
+4 about 2
+4 abo?? 3
+2 amount 1
+3 ab?ut 2
+4 a???t 2
