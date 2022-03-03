@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swcertpro_bingo", "swcertpro_bingo\swcertpro_bingo.vcxproj", "{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Debug|x64.ActiveCfg = Debug|x64
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Debug|x64.Build.0 = Debug|x64
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Debug|x86.ActiveCfg = Debug|Win32
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Debug|x86.Build.0 = Debug|Win32
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Release|x64.ActiveCfg = Release|x64
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Release|x64.Build.0 = Release|x64
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Release|x86.ActiveCfg = Release|Win32
+		{5FCE1821-F717-42EB-8E7A-6AFD3B28200C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63C0CCF3-0FFA-4BC4-8CD5-C7D0F501EE75}
+	EndGlobalSection
+EndGlobal
